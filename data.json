@@ -44,8 +44,8 @@
       ]
     },
     {
-      "name": "",
-      "code": "",
+      "name": "tes2",
+      "code": "tes2",
       "items": [
         "sangeet:0",
         "sangeet:1",
@@ -53,7 +53,6 @@
         "sangeet:3",
         "vivah:0",
         "vivah:1",
-        "vivah:2",
         "vivah:3",
         "reception:0",
         "reception:1",
@@ -63,16 +62,6 @@
     }
   ],
   "days": [
-    {
-      "id": "mehendi",
-      "mon": "Nov",
-      "num": "19",
-      "tab": "Mehendi",
-      "title": "Mehendi",
-      "date": "Thursday, 19 November",
-      "place": "Baghbaan Lawn",
-      "items": []
-    },
     {
       "id": "sangeet",
       "mon": "Nov",
