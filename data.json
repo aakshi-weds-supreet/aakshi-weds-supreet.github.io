@@ -1,0 +1,74 @@
+{
+  "brideName": "Aakshi",
+  "groomName": "Supreet",
+  "brideFamily": "Daughter of Smt. Sunita & Shri Rajendra Chawla",
+  "groomFamily": "Son of Smt. Anjali & Shri Mahesh Sharma",
+  "venueName": "Hariyali Resort",
+  "city": "Kota",
+  "state": "Rajasthan",
+  "venueNote": "Four days of celebration, one beautiful address. Rooms are held for outstation guests from 18 to 23 November.",
+  "weddingDateISO": "2026-11-21T23:52:00+05:30",
+  "weddingDay": "Saturday",
+  "weddingDateNum": "21",
+  "weddingMonthNum": "11",
+  "weddingYear": "2026",
+  "weddingMonthText": "the twenty-first of November",
+  "muhuratNote": "Vivah Muhurat · 11:52 PM",
+  "muhuratFull": "Vivah Muhurat · 11:52 PM · Saturday, 21 November 2026",
+  "rsvpBy": "Please reply by 25 October 2026",
+  "giftNote": "Your blessings are the only gift we ask for.",
+  "hashtag": "#AakshiWedsSupreet",
+  "footerNote": "With love, the Chawla and Sharma families",
+  "calendarUrl": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan",
+  "contacts": [
+    { "label": "Bride's family", "name": "Nikhil Chawla", "phone": "+91 98290 00000" },
+    { "label": "Groom's family", "name": "Aditya Sharma", "phone": "+91 94140 00000" }
+  ],
+  "gallery": [],
+  "days": [
+    {
+      "id": "mehendi", "mon": "Nov", "num": "19", "tab": "Mehendi", "title": "Mehendi",
+      "date": "Thursday, 19 November", "place": "Baghbaan Lawn", "dress": "Marigold & Mint",
+      "sw": ["#F2A33A", "#9ED3B2"],
+      "items": [
+        ["04:00 PM", "Guests arrive", "Welcome sharbat and settling in"],
+        ["04:30 PM", "Mehendi begins", "Henna artists for everyone who wants it"],
+        ["06:30 PM", "Chaat & chai", "Kota kachori, golgappe and masala chai"],
+        ["08:00 PM", "Dholak night", "Folk songs led by the aunties"]
+      ]
+    },
+    {
+      "id": "sangeet", "mon": "Nov", "num": "20", "tab": "Haldi & Sangeet", "title": "Haldi & Sangeet",
+      "date": "Friday, 20 November", "place": "Poolside Courtyard & Shubh Banquet Hall", "dress": "Sunshine Yellow, then Indigo",
+      "sw": ["#F2C430", "#3E4C86"],
+      "items": [
+        ["10:30 AM", "Haldi", "Turmeric, marigolds and a little mischief"],
+        ["01:00 PM", "Lunch", "A Rajasthani thali by the pool"],
+        ["07:30 PM", "Sangeet", "Family performances, rehearsed and otherwise"],
+        ["09:30 PM", "Dinner & dance", "Open floor until the DJ gives up"]
+      ]
+    },
+    {
+      "id": "vivah", "mon": "Nov", "num": "21", "tab": "Vivah", "title": "Vivah · The Wedding",
+      "date": "Saturday, 21 November", "place": "Main Gate & Mandap Lawn", "dress": "Traditional Red & Gold",
+      "sw": ["#A3122E", "#D9B25C"],
+      "items": [
+        ["07:00 PM", "Baraat", "The groom arrives with band, ghodi and dancing"],
+        ["08:30 PM", "Varmala", "Garlands exchanged on the stage"],
+        ["09:00 PM", "Dinner", "Served on the lawn through the night"],
+        ["11:52 PM", "Phere", "The saat phere at the Vivah Muhurat"]
+      ]
+    },
+    {
+      "id": "reception", "mon": "Nov", "num": "22", "tab": "Reception", "title": "Reception",
+      "date": "Sunday, 22 November", "place": "Chambal Hall", "dress": "Pastels & Ivory",
+      "sw": ["#F4C9D3", "#FFF4E2"],
+      "items": [
+        ["07:30 PM", "Guest arrival", "Welcome and seating"],
+        ["08:00 PM", "The couple arrives", "Mr & Mrs, for the first time"],
+        ["08:30 PM", "Blessings", "Family greetings and photographs"],
+        ["09:00 PM", "Dinner", "A meal shared with love"]
+      ]
+    }
+  ]
+}

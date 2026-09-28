@@ -399,6 +399,8 @@
     radial-gradient(circle at 16% 30%,rgba(255,200,170,.35) 0 20px,transparent 44px),
     radial-gradient(circle at 80% 64%,rgba(255,190,190,.22) 0 26px,transparent 56px),
     radial-gradient(ellipse 90% 70% at 50% 34%,#B0223F 0%,#5A0A22 55%,#220208 100%)}
+  .slide.photo{background:#2A1410}
+  .slide.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
   .s5{background:
     radial-gradient(circle at 20% 24%,rgba(255,244,200,.55) 0 16px,transparent 36px),
     radial-gradient(circle at 78% 30%,rgba(255,230,170,.45) 0 22px,transparent 48px),
@@ -684,7 +686,7 @@
     <div class="threshold"></div>
     <div class="door-text">
       <p class="door-title">Wedding<br>Invitation</p>
-      <p class="door-names">Aakshi weds Supreet</p>
+      <p class="door-names" id="door-names">Aakshi weds Supreet</p>
     </div>
     <p class="tap">Tap to Open</p>
     <div class="latch" aria-hidden="true"></div>
@@ -724,22 +726,22 @@
       <svg class="kalash" aria-hidden="true"><use href="#kalash"/></svg>
       <p class="invocation">॥ श्री गणेशाय नमः ॥</p>
       <p class="eyebrow">Together with their families</p>
-      <h1 class="names"><span>Aakshi</span><span class="amp">&amp;</span><span>Supreet</span></h1>
+      <h1 class="names"><span id="name-bride">Aakshi</span><span class="amp">&amp;</span><span id="name-groom">Supreet</span></h1>
       <p class="invite-line">request the honour of your presence as they begin their forever</p>
 
       <div class="families">
         <div class="fam">
           <small>The Bride</small>
-          <p>Daughter of Smt. Sunita &amp; Shri Rajendra Chawla</p>
+          <p id="bride-family">Daughter of Smt. Sunita &amp; Shri Rajendra Chawla</p>
         </div>
         <span class="vr" aria-hidden="true"></span>
         <div class="fam">
           <small>The Groom</small>
-          <p>Son of Smt. Anjali &amp; Shri Mahesh Sharma</p>
+          <p id="groom-family">Son of Smt. Anjali &amp; Shri Mahesh Sharma</p>
         </div>
       </div>
 
-      <p class="place">Hariyali Resort <i aria-hidden="true"></i> Kota, Rajasthan</p>
+      <p class="place"><span id="venue-name-1">Hariyali Resort</span> <i aria-hidden="true"></i> <span id="venue-place-1">Kota, Rajasthan</span></p>
       <br>
       <a class="scroll-cue" href="#date">
         Scratch to see the date
@@ -764,10 +766,10 @@
             <div class="scratch-area">
               <div class="reveal">
                 <svg class="mandala" aria-hidden="true"></svg>
-                <p class="r-day">Saturday</p>
-                <p class="r-date"><span>21</span><i aria-hidden="true"></i><span>11</span><i aria-hidden="true"></i><span>2026</span></p>
-                <p class="r-month">the twenty-first of November</p>
-                <p class="r-note">Vivah Muhurat &middot; 11:52 PM</p>
+                <p class="r-day" id="r-day">Saturday</p>
+                <p class="r-date"><span id="r-d">21</span><i aria-hidden="true"></i><span id="r-m">11</span><i aria-hidden="true"></i><span id="r-y">2026</span></p>
+                <p class="r-month" id="r-month">the twenty-first of November</p>
+                <p class="r-note" id="r-note">Vivah Muhurat &middot; 11:52 PM</p>
               </div>
               <canvas class="scratch" id="scratch" role="img" aria-label="Scratch card covering the wedding date"></canvas>
               <div class="scratch-shine" id="scratch-shine" aria-hidden="true"></div>
@@ -781,7 +783,7 @@
 
       <p class="scratch-hint" id="scratch-hint">Give the card a little scratch, or <button class="linkish" id="reveal-btn" type="button">reveal it instantly</button>.</p>
       <div class="after-reveal" id="after-reveal" hidden>
-        <a class="btn-gold" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Aakshi%20%26%20Supreet%27s%20Wedding&amp;dates=20261121T133000Z/20261121T200000Z&amp;details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&amp;location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan">Add to Google Calendar</a>
+        <a class="btn-gold" id="cal-link" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Aakshi%20%26%20Supreet%27s%20Wedding&amp;dates=20261121T133000Z/20261121T200000Z&amp;details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&amp;location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan">Add to Google Calendar</a>
       </div>
     </div>
   </section>
@@ -879,15 +881,15 @@
       <div class="venue-card">
         <svg class="mandala" aria-hidden="true"></svg>
         <svg class="mandala b" aria-hidden="true"></svg>
-        <p class="eyebrow light" style="position:relative">Kota &middot; Rajasthan</p>
-        <h3 class="venue-name">Hariyali Resort</h3>
-        <p class="venue-sub">Four days of celebration, one beautiful address. Rooms are held for outstation guests from 18 to 23 November.</p>
+        <p class="eyebrow light" style="position:relative" id="venue-place-2">Kota &middot; Rajasthan</p>
+        <h3 class="venue-name" id="venue-name-2">Hariyali Resort</h3>
+        <p class="venue-sub" id="venue-note">Four days of celebration, one beautiful address. Rooms are held for outstation guests from 18 to 23 November.</p>
         <div class="actions">
-          <a class="btn-gold" href="https://www.google.com/maps/search/?api=1&amp;query=Hariyali%20Resort%20Kota%20Rajasthan" target="_blank" rel="noopener">Open in Google Maps</a>
-          <button class="btn-ghost copy-btn" type="button" data-copy="Hariyali Resort, Kota, Rajasthan">Copy address</button>
+          <a class="btn-gold" id="maps-link" href="https://www.google.com/maps/search/?api=1&amp;query=Hariyali%20Resort%20Kota%20Rajasthan" target="_blank" rel="noopener">Open in Google Maps</a>
+          <button class="btn-ghost copy-btn" id="copy-address-btn" type="button" data-copy="Hariyali Resort, Kota, Rajasthan">Copy address</button>
         </div>
       </div>
-      <ul class="travel">
+      <ul class="travel" id="travel-list">
         <li><span class="km">~12 km</span><b>Kota Junction (KOTA)</b><span class="d">Direct trains from Delhi, Mumbai and Jaipur. Pickups arranged on request.</span></li>
         <li><span class="km">~245 km</span><b>Jaipur International Airport (JAI)</b><span class="d">About four hours by road. Cabs can be booked through the family.</span></li>
         <li><span class="km">~6 km</span><b>Nayapura Bus Stand</b><span class="d">Frequent buses from Udaipur, Ajmer and Indore.</span></li>
@@ -904,8 +906,8 @@
         <h2 class="h2">Will you join us?</h2>
         <div class="divider"><i></i></div>
         <p class="lead">Call or message either family with your name, how many people are travelling with you, and the nights you need a room.</p>
-        <p class="by">Please reply by 25 October 2026</p>
-        <div class="contacts">
+        <p class="by" id="rsvp-by">Please reply by 25 October 2026</p>
+        <div class="contacts" id="contacts">
           <div class="contact">
             <small>Bride's family</small>
             <b>Nikhil Chawla</b>
@@ -917,7 +919,7 @@
             <span class="phone"><code>+91 94140 00000</code><button class="copy copy-btn" type="button" data-copy="+91 94140 00000">Copy</button></span>
           </div>
         </div>
-        <p class="gift">Your blessings are the only gift we ask for.</p>
+        <p class="gift" id="gift-note">Your blessings are the only gift we ask for.</p>
       </div>
     </div>
   </section>
@@ -925,9 +927,9 @@
   <footer>
     <canvas class="garland" data-seed="29" data-drops="1" data-band="46" aria-hidden="true"></canvas>
     <div class="wrap">
-      <p class="f-names">Aakshi &amp; Supreet</p>
-      <p class="f-tag">#AakshiWedsSupreet &nbsp;&middot;&nbsp; 21.11.2026</p>
-      <p class="f-note">With love, the Chawla and Sharma families</p>
+      <p class="f-names" id="f-names">Aakshi &amp; Supreet</p>
+      <p class="f-tag" id="f-tag">#AakshiWedsSupreet &nbsp;&middot;&nbsp; 21.11.2026</p>
+      <p class="f-note" id="f-note">With love, the Chawla and Sharma families</p>
     </div>
   </footer>
 </main>
@@ -1351,11 +1353,6 @@ if(scv){
 
 /* ---------- carousel ---------- */
 var track=$('#track'),slides=$$('.slide',track),dotsWrap=$('#dots'),autoTimer=0,carVisible=false;
-slides.forEach(function(s,i){
-  s.setAttribute('aria-label',(i+1)+' of '+slides.length);
-  var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show chapter '+(i+1));
-  b.addEventListener('click',function(){stopAuto();go(i);});dotsWrap.appendChild(b);
-});
 function cur(){return Math.round(track.scrollLeft/Math.max(1,track.clientWidth));}
 function go(i){track.scrollTo({left:i*track.clientWidth,behavior:reduce?'auto':'smooth'});}
 function updateDots(){var c=cur();$$('button',dotsWrap).forEach(function(d,i){d.setAttribute('aria-current',i===c?'true':'false');});}
@@ -1372,76 +1369,172 @@ if('IntersectionObserver' in window){new IntersectionObserver(function(en){carVi
 if(!reduce){autoTimer=setInterval(function(){if(carVisible&&!document.hidden&&!root.classList.contains('gated'))go((cur()+1)%slides.length);},4800);}
 updateDots();
 
+/* ---------- content data (defaults; overridden by data.json if present) ---------- */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+var DEFAULTS={
+  brideName:'Aakshi',groomName:'Supreet',
+  brideFamily:'Daughter of Smt. Sunita & Shri Rajendra Chawla',
+  groomFamily:'Son of Smt. Anjali & Shri Mahesh Sharma',
+  venueName:'Hariyali Resort',city:'Kota',state:'Rajasthan',
+  venueNote:'Four days of celebration, one beautiful address. Rooms are held for outstation guests from 18 to 23 November.',
+  weddingDateISO:'2026-11-21T23:52:00+05:30',
+  weddingDay:'Saturday',weddingDateNum:'21',weddingMonthNum:'11',weddingYear:'2026',
+  weddingMonthText:'the twenty-first of November',
+  muhuratNote:'Vivah Muhurat · 11:52 PM',
+  muhuratFull:'Vivah Muhurat · 11:52 PM · Saturday, 21 November 2026',
+  rsvpBy:'Please reply by 25 October 2026',
+  giftNote:'Your blessings are the only gift we ask for.',
+  hashtag:'#AakshiWedsSupreet',
+  footerNote:'With love, the Chawla and Sharma families',
+  calendarUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan',
+  contacts:[
+    {label:"Bride's family",name:'Nikhil Chawla',phone:'+91 98290 00000'},
+    {label:"Groom's family",name:'Aditya Sharma',phone:'+91 94140 00000'}
+  ],
+  gallery:[],
+  days:[
+    {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',dress:'Marigold & Mint',sw:['#F2A33A','#9ED3B2'],items:[
+      ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],
+      ['04:30 PM','Mehendi begins','Henna artists for everyone who wants it'],
+      ['06:30 PM','Chaat & chai','Kota kachori, golgappe and masala chai'],
+      ['08:00 PM','Dholak night','Folk songs led by the aunties']]},
+    {id:'sangeet',mon:'Nov',num:'20',tab:'Haldi & Sangeet',title:'Haldi & Sangeet',date:'Friday, 20 November',place:'Poolside Courtyard & Shubh Banquet Hall',dress:'Sunshine Yellow, then Indigo',sw:['#F2C430','#3E4C86'],items:[
+      ['10:30 AM','Haldi','Turmeric, marigolds and a little mischief'],
+      ['01:00 PM','Lunch','A Rajasthani thali by the pool'],
+      ['07:30 PM','Sangeet','Family performances, rehearsed and otherwise'],
+      ['09:30 PM','Dinner & dance','Open floor until the DJ gives up']]},
+    {id:'vivah',mon:'Nov',num:'21',tab:'Vivah',title:'Vivah · The Wedding',date:'Saturday, 21 November',place:'Main Gate & Mandap Lawn',dress:'Traditional Red & Gold',sw:['#A3122E','#D9B25C'],items:[
+      ['07:00 PM','Baraat','The groom arrives with band, ghodi and dancing'],
+      ['08:30 PM','Varmala','Garlands exchanged on the stage'],
+      ['09:00 PM','Dinner','Served on the lawn through the night'],
+      ['11:52 PM','Phere','The saat phere at the Vivah Muhurat']]},
+    {id:'reception',mon:'Nov',num:'22',tab:'Reception',title:'Reception',date:'Sunday, 22 November',place:'Chambal Hall',dress:'Pastels & Ivory',sw:['#F4C9D3','#FFF4E2'],items:[
+      ['07:30 PM','Guest arrival','Welcome and seating'],
+      ['08:00 PM','The couple arrives','Mr & Mrs, for the first time'],
+      ['08:30 PM','Blessings','Family greetings and photographs'],
+      ['09:00 PM','Dinner','A meal shared with love']]}
+  ]
+};
+
 /* ---------- countdown ---------- */
-(function(){
-  var target=new Date('2026-11-21T23:52:00+05:30').getTime();
+var cdTimer=0;
+function startCountdown(iso,muhuratText){
+  clearTimeout(cdTimer);
+  var target=new Date(iso).getTime();
+  $('#muhurat').innerHTML=muhuratText;
   var D=$('#cd-d'),Hh=$('#cd-h'),M=$('#cd-m'),Sx=$('#cd-s');
   function pad(n){return n<10?'0'+n:''+n;}
   function tick(){
     var diff=target-Date.now();
     if(diff<=0){
-      $('#count').innerHTML='<div style="grid-column:1/-1"><b>Married</b><small>21 November 2026</small></div>';
+      $('#count').innerHTML='<div style="grid-column:1/-1"><b>Married</b><small>&nbsp;</small></div>';
       $('#muhurat').textContent='Thank you for celebrating with us';return;
     }
     var sec=Math.floor(diff/1000);
     D.textContent=pad(Math.floor(sec/86400));Hh.textContent=pad(Math.floor(sec%86400/3600));
     M.textContent=pad(Math.floor(sec%3600/60));Sx.textContent=pad(sec%60);
-    setTimeout(tick,1000-(Date.now()%1000));
+    cdTimer=setTimeout(tick,1000-(Date.now()%1000));
   }
   tick();
-})();
+}
 
 /* ---------- timeline ---------- */
-var DAYS=[
-  {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',dress:'Marigold & Mint',sw:['#F2A33A','#9ED3B2'],items:[
-    ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],
-    ['04:30 PM','Mehendi begins','Henna artists for everyone who wants it'],
-    ['06:30 PM','Chaat & chai','Kota kachori, golgappe and masala chai'],
-    ['08:00 PM','Dholak night','Folk songs led by the aunties']]},
-  {id:'sangeet',mon:'Nov',num:'20',tab:'Haldi & Sangeet',title:'Haldi & Sangeet',date:'Friday, 20 November',place:'Poolside Courtyard & Shubh Banquet Hall',dress:'Sunshine Yellow, then Indigo',sw:['#F2C430','#3E4C86'],items:[
-    ['10:30 AM','Haldi','Turmeric, marigolds and a little mischief'],
-    ['01:00 PM','Lunch','A Rajasthani thali by the pool'],
-    ['07:30 PM','Sangeet','Family performances, rehearsed and otherwise'],
-    ['09:30 PM','Dinner & dance','Open floor until the DJ gives up']]},
-  {id:'vivah',mon:'Nov',num:'21',tab:'Vivah',title:'Vivah · The Wedding',date:'Saturday, 21 November',place:'Main Gate & Mandap Lawn',dress:'Traditional Red & Gold',sw:['#A3122E','#D9B25C'],items:[
-    ['07:00 PM','Baraat','The groom arrives with band, ghodi and dancing'],
-    ['08:30 PM','Varmala','Garlands exchanged on the stage'],
-    ['09:00 PM','Dinner','Served on the lawn through the night'],
-    ['11:52 PM','Phere','The saat phere at the Vivah Muhurat']]},
-  {id:'reception',mon:'Nov',num:'22',tab:'Reception',title:'Reception',date:'Sunday, 22 November',place:'Chambal Hall',dress:'Pastels & Ivory',sw:['#F4C9D3','#FFF4E2'],items:[
-    ['07:30 PM','Guest arrival','Welcome and seating'],
-    ['08:00 PM','The couple arrives','Mr & Mrs, for the first time'],
-    ['08:30 PM','Blessings','Family greetings and photographs'],
-    ['09:00 PM','Dinner','A meal shared with love']]}
-];
-var tabsEl=$('#tabs');
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
-DAYS.forEach(function(d,i){
-  var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+d.id;
-  b.setAttribute('role','tab');b.setAttribute('aria-controls','day');
-  b.innerHTML='<span>'+d.mon+'</span><b>'+d.num+'</b><em>'+esc(d.tab)+'</em>';
-  b.addEventListener('click',function(){selectDay(i,true);});tabsEl.appendChild(b);
-});
+var tabsEl=$('#tabs'),CUR_DAYS=[];
+function buildDays(days){
+  CUR_DAYS=days;tabsEl.innerHTML='';
+  days.forEach(function(d,i){
+    var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+(d.id||i);
+    b.setAttribute('role','tab');b.setAttribute('aria-controls','day');
+    b.innerHTML='<span>'+esc(d.mon)+'</span><b>'+esc(d.num)+'</b><em>'+esc(d.tab)+'</em>';
+    b.addEventListener('click',function(){selectDay(i,true);});tabsEl.appendChild(b);
+  });
+  selectDay(Math.min(2,days.length-1),false);
+}
 tabsEl.addEventListener('keydown',function(e){
   var tabs=$$('.tab',tabsEl),i=tabs.indexOf(document.activeElement);if(i<0)return;
   if(e.key==='ArrowRight'){e.preventDefault();selectDay((i+1)%tabs.length,true);}
   if(e.key==='ArrowLeft'){e.preventDefault();selectDay((i-1+tabs.length)%tabs.length,true);}
 });
 function selectDay(i,focus){
-  var d=DAYS[i];
+  var d=CUR_DAYS[i];if(!d)return;
   $$('.tab',tabsEl).forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1;if(j===i&&focus)b.focus();});
-  $('#day').setAttribute('aria-labelledby','tab-'+d.id);
+  $('#day').setAttribute('aria-labelledby','tab-'+(d.id||i));
   $('#day-name').textContent=d.title;
   $('#day-meta').textContent=d.date+' · '+d.place;
   $('#timeline').innerHTML=d.items.map(function(it,k){
-    return '<li style="animation-delay:'+(k*70)+'ms"><span class="t-time">'+it[0]+'</span><span class="t-dot" aria-hidden="true"></span><div class="t-body"><h4>'+esc(it[1])+'</h4><p>'+esc(it[2])+'</p></div></li>';
+    return '<li style="animation-delay:'+(k*70)+'ms"><span class="t-time">'+esc(it[0])+'</span><span class="t-dot" aria-hidden="true"></span><div class="t-body"><h4>'+esc(it[1])+'</h4><p>'+esc(it[2])+'</p></div></li>';
   }).join('');
-  $('#dress').innerHTML='<span class="sw" style="background:'+d.sw[0]+'"></span><span class="sw" style="background:'+d.sw[1]+'"></span> Dress code &middot; '+esc(d.dress);
+  $('#dress').innerHTML='<span class="sw" style="background:'+esc(d.sw[0])+'"></span><span class="sw" style="background:'+esc(d.sw[1])+'"></span> Dress code &middot; '+esc(d.dress);
 }
-selectDay(2,false);
+
+/* ---------- contacts ---------- */
+function buildContacts(list){
+  var wrap=$('#contacts');wrap.innerHTML=list.map(function(c){
+    var digits=String(c.phone||'').replace(/[^0-9+]/g,'');
+    return '<div class="contact"><small>'+esc(c.label)+'</small><b>'+esc(c.name)+'</b>'+
+      '<span class="phone"><code>'+esc(c.phone)+'</code><button class="copy copy-btn" type="button" data-copy="'+esc(digits)+'">Copy</button></span></div>';
+  }).join('');
+  $$('.copy-btn',wrap).forEach(bindCopyBtn);
+}
+
+/* ---------- gallery ---------- */
+var ILLUSTRATED_SLIDES=null;
+function buildGallery(list){
+  if(ILLUSTRATED_SLIDES===null)ILLUSTRATED_SLIDES=track.innerHTML;
+  if(!list||!list.length){track.innerHTML=ILLUSTRATED_SLIDES;}
+  else{
+    track.innerHTML=list.map(function(g,i){
+      return '<figure class="slide photo"><img src="'+esc(g.image)+'" alt="" loading="'+(i?'lazy':'eager')+'">'+
+        '<span class="bracket tl"></span><span class="bracket tr"></span><span class="bracket bl"></span><span class="bracket br"></span>'+
+        '<figcaption><small>'+esc(g.chapter||'')+'</small><b>'+esc(g.title||'')+'</b><span>'+esc(g.caption||'')+'</span></figcaption></figure>';
+    }).join('');
+  }
+  slides=$$('.slide',track);dotsWrap.innerHTML='';
+  slides.forEach(function(s,i){
+    s.setAttribute('aria-label',(i+1)+' of '+slides.length);
+    var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show chapter '+(i+1));
+    b.addEventListener('click',function(){stopAuto();go(i);});dotsWrap.appendChild(b);
+  });
+  updateDots();
+}
+
+/* ---------- apply data ---------- */
+function applyData(data){
+  $('#name-bride').textContent=data.brideName;
+  $('#name-groom').textContent=data.groomName;
+  $('#bride-family').textContent=data.brideFamily;
+  $('#groom-family').textContent=data.groomFamily;
+  $('#door-names').textContent=data.brideName+' weds '+data.groomName;
+  var place=data.city+', '+data.state;
+  $('#venue-name-1').textContent=data.venueName;$('#venue-place-1').textContent=place;
+  $('#venue-name-2').textContent=data.venueName;$('#venue-place-2').textContent=data.city+' · '+data.state;
+  $('#venue-note').textContent=data.venueNote;
+  var addr=data.venueName+', '+data.city+', '+data.state;
+  $('#maps-link').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr);
+  $('#copy-address-btn').setAttribute('data-copy',addr);
+  $('#r-day').textContent=data.weddingDay;
+  $('#r-d').textContent=data.weddingDateNum;$('#r-m').textContent=data.weddingMonthNum;$('#r-y').textContent=data.weddingYear;
+  $('#r-month').textContent=data.weddingMonthText;
+  $('#r-note').textContent=data.muhuratNote;
+  $('#cal-link').href=data.calendarUrl;
+  $('#rsvp-by').textContent=data.rsvpBy;
+  $('#gift-note').textContent=data.giftNote;
+  $('#f-names').textContent=data.brideName+' & '+data.groomName;
+  $('#f-tag').textContent=data.hashtag+' · '+data.weddingDateNum+'.'+data.weddingMonthNum+'.'+data.weddingYear;
+  $('#f-note').textContent=data.footerNote;
+  document.title=data.brideName+' & '+data.groomName;
+  buildDays(data.days);
+  buildContacts(data.contacts);
+  buildGallery(data.gallery);
+  startCountdown(data.weddingDateISO,data.muhuratFull);
+}
+applyData(DEFAULTS);
+fetch('data.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+  if(d)applyData(Object.assign({},DEFAULTS,d));
+}).catch(function(){});
 
 /* ---------- copy buttons ---------- */
-$$('.copy-btn').forEach(function(btn){
+function bindCopyBtn(btn){
   var label=btn.textContent;
   btn.addEventListener('click',function(){
     var text=btn.getAttribute('data-copy');
@@ -1453,7 +1546,8 @@ $$('.copy-btn').forEach(function(btn){
     }
     try{navigator.clipboard.writeText(text).then(function(){done('Copied');},fallback);}catch(e){fallback();}
   });
-});
+}
+$$('.copy-btn').filter(function(b){return !b.closest('#contacts');}).forEach(bindCopyBtn);
 
 /* ---------- floating RSVP ---------- */
 if('IntersectionObserver' in window){
