@@ -53,11 +53,6 @@
       "title": "Mehendi",
       "date": "Thursday, 19 November",
       "place": "Baghbaan Lawn",
-      "dress": "Marigold & Mint",
-      "sw": [
-        "#F2A33A",
-        "#9ED3B2"
-      ],
       "items": []
     },
     {
@@ -68,11 +63,6 @@
       "title": "Haldi & Sangeet",
       "date": "Friday, 20 November",
       "place": "Poolside Courtyard & Shubh Banquet Hall",
-      "dress": "Sunshine Yellow, then Indigo",
-      "sw": [
-        "#F2C430",
-        "#3E4C86"
-      ],
       "items": [
         [
           "10:30 AM",
@@ -104,11 +94,6 @@
       "title": "Vivah · The Wedding",
       "date": "Saturday, 21 November",
       "place": "Main Gate & Mandap Lawn",
-      "dress": "Traditional Red & Gold",
-      "sw": [
-        "#A3122E",
-        "#D9B25C"
-      ],
       "items": [
         [
           "07:00 PM",
@@ -140,11 +125,6 @@
       "title": "Reception",
       "date": "Sunday, 22 November",
       "place": "Chambal Hall",
-      "dress": "Pastels & Ivory",
-      "sw": [
-        "#F4C9D3",
-        "#FFF4E2"
-      ],
       "items": [
         [
           "07:30 PM",

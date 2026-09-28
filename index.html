@@ -85,7 +85,7 @@
     position:fixed;inset:0;z-index:100;display:none;
     flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
     padding:104px 0 56px;
-    background:radial-gradient(ellipse 82% 72% at 50% 42%,#FFF8FA 0%,#FBE7EC 48%,#F0CCD6 100%);
+    background:radial-gradient(ellipse 92% 78% at 50% 34%,#FFFDFE 0%,#FCEDF1 44%,#F4D5DE 100%);
   }
   html.gated .gate{display:flex}
   .gate::before{
@@ -93,18 +93,8 @@
     background-image:radial-gradient(circle,rgba(168,130,60,.1) 1px,transparent 1.5px);
     background-size:26px 26px;
   }
-  .drapes{position:absolute;inset:0;pointer-events:none;z-index:1;filter:drop-shadow(0 0 22px rgba(150,72,92,.12))}
-  .drape{
-    position:absolute;top:0;bottom:0;width:min(21vw,230px);opacity:.82;
-    background:
-      linear-gradient(90deg,rgba(150,72,92,.1),rgba(150,72,92,0) 45%),
-      repeating-linear-gradient(90deg,#EAC3CE 0,#F4D7DF 12px,#FBEAEF 16px,#EFCBD6 25px,#EAC3CE 31px);
-    clip-path:polygon(0 0,100% 0,92% 18%,62% 46%,40% 58%,54% 76%,72% 100%,0 100%);
-  }
-  .drape--l{left:0}
-  .drape--r{right:0;transform:scaleX(-1)}
-  .gate-swag{position:absolute;top:0;left:0;height:92px;z-index:3}
-  .gate-floor{position:absolute;bottom:0;left:0;height:38px;z-index:6}
+  .gate-swag{position:absolute;top:0;left:0;height:74px;z-index:3}
+  .gate-floor{position:absolute;bottom:0;left:0;height:26px;z-index:6;opacity:.85}
   .gate .bouquet{
     position:absolute;bottom:0;z-index:7;pointer-events:none;
     width:min(calc(50vw - min(36vw,170px) + 8px),260px);height:min(24vh,190px);
@@ -120,11 +110,11 @@
 
   .doorway{
     position:relative;z-index:4;container-type:inline-size;flex:0 0 auto;
-    width:min(78vw,340px,calc((100vh - 230px) * .56));
-    width:min(78vw,340px,calc((100dvh - 230px) * .56));
-    aspect-ratio:.56;margin-top:50px;perspective:1400px;cursor:pointer;
+    width:min(72vw,320px,calc((100vh - 260px) * .54));
+    width:min(72vw,320px,calc((100dvh - 260px) * .54));
+    aspect-ratio:.56;margin-top:74px;perspective:1400px;cursor:pointer;
   }
-  .finial{position:absolute;left:50%;top:0;width:13cqw;height:16.25cqw;transform:translate(-50%,-94%);color:var(--gold);filter:drop-shadow(0 2px 3px rgba(150,72,92,.3))}
+  .finial{position:absolute;left:50%;top:0;width:23cqw;height:28.5cqw;transform:translate(-50%,-104%);color:var(--gold-deep);opacity:.92;filter:drop-shadow(0 2px 4px rgba(150,72,92,.22))}
   .door-glow{
     position:absolute;inset:0;
     background:radial-gradient(ellipse 60% 55% at 50% 60%,#FFFBF0 0%,#F6E6C2 32%,#E8D0AE 64%,#D8AEBC 100%);
@@ -222,7 +212,7 @@
   @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
   .hero-inner{position:relative;z-index:2;margin-top:-4px}
   .kalash{width:44px;height:55px;color:var(--gold-deep);display:block;margin:0 auto}
-  .ganesha{width:clamp(118px,31vw,156px);height:auto;aspect-ratio:232/240;color:var(--gold-deep);display:block;margin:0 auto 6px}
+  .ganesha{width:clamp(104px,27vw,140px);height:auto;aspect-ratio:302.68/375.01;color:var(--gold-deep);display:block;margin:0 auto 10px}
   .invocation{font-family:var(--f-deva);font-size:1.08rem;color:var(--rose-deep);margin:8px 0 0}
   .hero .eyebrow{margin-top:20px}
   .names{
@@ -476,11 +466,6 @@
   .t-body h4{font-family:var(--f-display);font-weight:600;font-size:1.6rem;color:var(--plum);margin:0;line-height:1.3}
   .t-body p{font-family:var(--f-serif);font-style:italic;font-size:1.08rem;color:var(--muted);margin:2px 0 0;line-height:1.4}
   .g-divider{max-width:360px;height:78px;margin:4px auto 0}
-  .dress{
-    display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:16px 0 0;
-    font:500 10.5px/1.4 var(--f-label);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
-  }
-  .sw{width:15px;height:15px;border-radius:50%;box-shadow:0 0 0 1px rgba(107,81,87,.25)}
   @media (max-width:420px){
     .timeline li{grid-template-columns:70px 18px minmax(0,1fr);column-gap:10px}
     .t-time{font-size:11px;letter-spacing:.06em}
@@ -507,14 +492,13 @@
   }
   .venue-sub{position:relative;font-family:var(--f-serif);font-style:italic;font-size:clamp(1rem,3.6vw,1.25rem);color:var(--muted);margin:12px auto 0;max-width:34ch;line-height:1.45}
   .actions{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
-  .travel{list-style:none;padding:0;margin:30px auto 0;max-width:760px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .travel{list-style:none;padding:0;margin:30px auto 0;max-width:560px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .travel li{
-    background:#FFFFFF;border:1px solid var(--hair);padding:18px 20px;
-    display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:16px;align-items:baseline;
+    background:#FFFFFF;border:1px solid var(--hair);padding:20px 22px;
+    display:flex;gap:14px;align-items:baseline;justify-content:center;text-align:center;
   }
-  .km{grid-row:span 2;font-family:var(--f-display);font-weight:600;font-size:1.45rem;color:var(--rose-deep);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+  .km{font-family:var(--f-display);font-weight:600;font-size:1.45rem;color:var(--rose-deep);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
   .travel b{font-weight:500;color:var(--plum)}
-  .travel .d{grid-column:2;font-size:13.5px;color:var(--muted);line-height:1.5}
   @media (max-width:640px){.travel{grid-template-columns:1fr}}
 
   /* ---------- footer ---------- */
@@ -566,45 +550,30 @@
     <path d="M30 105 C34 110 34 115 30 119 C26 115 26 110 30 105 Z" fill="#C98F9C"/>
   </symbol>
 
-  <symbol id="ganesha" viewBox="-6 -14 232 240">
-    <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="110" cy="96" r="96" stroke-width="1" opacity=".38"/>
-      <circle cx="110" cy="96" r="90" stroke-width="2.2" opacity=".55" stroke-dasharray="0.1 7"/>
-      <path d="M110 -6 C114 0 114 5 110 10 C106 5 106 0 110 -6 Z" fill="currentColor" stroke="none"/>
-      <path d="M110 10 V15"/>
-      <path d="M100 25 Q110 11 120 25"/>
-      <path d="M96 25 H124"/>
-      <path d="M93 38 Q110 17 127 38"/>
-      <path d="M89 38 H131"/>
-      <path d="M84 55 Q110 21 136 55"/>
-      <path d="M95 55 Q110 34 125 55" stroke-width="1.3" opacity=".75"/>
-      <path d="M79 55 H141"/>
-      <path d="M83 64 H137"/>
-      <circle cx="110" cy="59.5" r="3" fill="currentColor" stroke="none"/>
-      <circle cx="95" cy="59.5" r="1.6" fill="currentColor" stroke="none"/>
-      <circle cx="125" cy="59.5" r="1.6" fill="currentColor" stroke="none"/>
-      <path d="M90 67 C74 75 66 90 68 108"/>
-      <path d="M130 67 C146 75 154 90 152 108"/>
-      <path d="M68 108 C70 132 86 150 110 154"/>
-      <path d="M152 108 C150 132 134 150 110 154"/>
-      <path d="M73 75 C46 66 20 81 22 105 C24 129 50 139 71 129"/>
-      <path d="M77 86 C56 79 38 90 40 106 C42 123 58 130 74 121" stroke-width="1.4"/>
-      <path d="M81 96 C67 92 55 99 57 107 C59 116 68 120 78 114" stroke-width="1.1" opacity=".7"/>
-      <path d="M147 75 C174 66 200 81 198 105 C196 129 170 139 149 129"/>
-      <path d="M143 86 C164 79 182 90 180 106 C178 123 162 130 146 121" stroke-width="1.4"/>
-      <path d="M139 96 C153 92 165 99 163 107 C161 116 152 120 142 114" stroke-width="1.1" opacity=".7"/>
-      <circle cx="36" cy="134" r="5" stroke-width="1.6"/>
-      <circle cx="184" cy="134" r="5" stroke-width="1.6"/>
-      <path d="M103 73 Q110 87 117 73" stroke-width="1.9"/>
-      <circle cx="110" cy="68" r="2.1" fill="currentColor" stroke="none"/>
-      <path d="M82 96 Q92 90 101 95" stroke-width="1.5" opacity=".8"/>
-      <path d="M119 95 Q128 90 138 96" stroke-width="1.5" opacity=".8"/>
-      <path d="M84 105 Q92 98 100 105" stroke-width="2.2"/>
-      <path d="M120 105 Q128 98 136 105" stroke-width="2.2"/>
-      <path d="M92 146 Q84 158 89 170" stroke-width="2.4"/>
-      <path d="M128 146 Q134 154 132 160" stroke-width="2.4"/>
-      <path d="M110 116 C115 138 111 158 102 172 C92 188 84 204 96 212 C108 219 120 208 117 196" stroke-width="4.6"/>
-      <circle cx="117" cy="197" r="5.6" stroke-width="1.7"/>
+  <symbol id="ganesha" viewBox="0 0 302.68 375.01">
+    <g fill="currentColor" transform="translate(-72.384 -3.3092)">
+      <g transform="matrix(.2497 0 0 .2497 186.32 67.369)">
+      <path d="m-254.29-64.781c87.76 5.794 177.72-27.495 258.71 59.247-45.771 1.8678-76.86-35.413-138.71 9.3247 20.42 177.47 47.678 126.49 114.29 220-199.17-12.6-135.24-255.77-234.29-288.57z"/>
+      <path d="m630.13-59.066c-87.759 14.03-177.71-16.743-267.28 39.247 49.092 9.7746 98.183-8.9371 147.28 29.325-35.93 178.96-48.53 139.34-114.28 220 199.17-12.6 135.24-255.78 234.28-288.58z"/>
+      <path d="m17.143-81.924c3.3708-3.3676 277.56-37.714 331.43 60-109.52-34.337-219.05-27.157-328.57-8.571-8.782-16.431-10.496-33.505-2.857-51.429z"/>
+      <path d="m41.737-154.36c8.6614 0.77895 218.44 3.2334 281.74 72.264-109.53-34.334-169.36-39.424-278.89-20.834-20.251-17.143-9.9549-34.286-2.8571-51.429z"/>
+      <path d="m168.86-256.55c39.903 30.576 60.816 63.219 61.68 99.725h-117.14c4.319-38.701 8.815-62.507 55.463-99.725z"/>
+      <path d="m29.473 26.657 101.96 95.454h-85.714l8.9607-58.225z"/>
+      <path d="m150.79-25.874h16.608c2.9493 21.218 5.8986 41.35 8.848 43.418 4.6261 3.2436 9.2522-22.865 13.878-43.418h13.985v57.625c-11.111 11.722-20.392 26.496-53.319 1.8589z"/>
+      <path d="m108.39 244.35c-16.271 88.385-25.843 179.09 42.575 249.91 72.832 29.791 145.66 17.294 218.5-11.987 62.797-31.579 125.23-50.86 178.9-32.268 2.8587 10.828 7.2511 21.655-3.0878 32.483-76.22-9.6283-125.18 23.289-184.49 47.48-84.343 40.763-168.69 42.139-253.03 0.99212-61.528-47.64-81.751-133.94-56.767-219.55-22.734 4.6686-68.133 16.341-96.279 10.388 23-33.919 99.936-100.26 153.67-77.438z"/>
+      <path d="m322.71 244.15c10.691 18.756 15.391 37.513 8.9992 56.269l-21.932 19.425c4.5169 37.936 27.89 49.916 59.87 62.495l208.83-0.61773 22.259 13.626c22.781 1.5712 45.793 3.6053 66.743 1.5141 12.193 9.128 9.502 18.256 6.846 27.384-9.0566 12.434-19.902 14.133-30.822 15.385 0.0541 14.41-8.5598 24.485-23.716 31.29-7.5861 4.3378-13.348 1.3795-19.074-1.7226-2.956-14.795-5.9153-29.59-7.0151-44.384l-220.45 1.8701c-56.015-17.413-101.83-43.61-136-84.051-46.018-71.666 32.661-126.45 85.458-98.482z"/>
+      <path d="m-155.13 292.81c52.052-1.3064 63.322 17.571 76.502 42.433 11.404 21.511 6.7917 35.136-3.8505 56.414 14.351-9.9091 39.326-6.7507 48.715 6.1248 15.069 27.173 11.413 70.302-8.5641 105.45-26.2 30.778-60.378 35.842-78.6 31.581 4.4578-18.384 51.338-48.058 32.915-88.706-14.366 19.556-29.345 26.82-43.097 26.45-9.1871-3.5063-10.318-10.465-8.095-18.861 13.756-16.785 26.73-45.324 20.379-68.178-5.3048-19.088-24.394-43.089-43.963-39.998-19.219 3.036-25.376 31.555-28.965 50.678-6.0977 32.491 2.2491 65.392 14.645 98.088 8.7352 23.967 57.229 41.622 44.748 64.676-7.2443 13.381-33.006 4.7026-45.631-1.2274-77.339-47.928-122.54-255.53 22.863-264.93z"/>
+      <path d="m412.42 264.35c9.0012-7.407 18.002-3.739 27.004 0-1.4019 75.519-10.106 81.011-68.736 95.74 13.911-22.941 27.822-53.19 41.733-95.74z"/>
+      <path d="m672.3 571.93c-17.53 9.7734-26.096 5.2038-34.31 0.0723-15.78-18.991-18.491-40.267-52.921-43.273-33.563-0.89058-48.589 13.28-59.816 30.538l74.117 2.2202c2.4741 9.2124 11.467 12.721-0.0375 34.164l-132.9 0.10745c-6.2426-41.204 42.466-81.505 104.01-119.41 40.652 16.48 93.85 64.296 101.86 95.585z"/>
+      <path d="m-412.24 608.92c63.69-62.727 159.48-71.742 252.45-33.281 73.196 25.749 101.81 47.666 133.36 86.201l-157.86-47.9c-57.56-18.105-138.7 18.628-173.92 53.668-31.091 39.296-17.2 130.36 78.587 218.98 46.838 29.138 99.118 39.156 212.81 54.368l212.16 4.4858c72.432 9.0774 82.488 42.412 97.039 73.999-22.456-15.602-33.874-37.09-91.283-34.051l-222.06 11.15c-81.09-4.62-162.17-7.22-243.26-51.92-182.8-98.47-157.72-268-98.03-335.71z"/>
+      <path d="m216.72 596.51c12.579-3.4091 24.5-4.5051 41.425-14.535 9.2542 21.905 11.237 37.33 0.92259 51.9-68.98 67.01-157.57 115.58-239.84 129.45 55.172-47.19 128.96-81.02 197.49-166.82z"/>
+      <path transform="translate(11.624 -19.761)" d="m163.9 776.87c0 16.05-14.312 29.06-31.966 29.06-17.655 0-31.966-13.011-31.966-29.06 0-16.05 14.312-29.06 31.966-29.06 17.655 0 31.966 13.011 31.966 29.06z"/>
+      <path d="m16.274 788.49c88.966 38.04 147.9 31.04 252.25-12.78-81.91 92.22-261.68 97.39-252.25 12.78z"/>
+      <path d="m362.67 759.43c54.812-77.496 110.07-133.48 188.66-147.69 111.82-20.227 210.95 60.725 204.23 161.64-7.5364 113.2-62.378 211.61-137.17 295.25-35.776 40.012-101.85 53.129-137.85 63.483 27.515-31.272 63.483-31.171 101.99-89.923 39.04-80.32 107.18-182.44 102.88-249.11-9.64-100.18-69.81-126.08-124.31-109.86-62.726 18.671-116.5 74.312-148.96 117.51-46.269 77.574-76.585 232.6-60.721 265.47 28.879 32.547 70.191 23.687 99.599 25.671-29.521 26.551-111.58 47.297-137.56 9.3859-58.327-85.105-0.71171-256.24 49.216-341.84z"/>
+      <path d="m-55.796 1010.5c193.47 37.661 208.1 107.99 234.81 181.34-71.898-50.474-112.58-119.68-239.46-137.16-35.63-15.499-19.134-44.091 4.6497-44.172z"/>
+      <path d="m237.13 1115.1 34.119-43.18c34.002 13.845 31 24.357 20.818 43.112l-17.74 16.341 1.2792 65.733 150.19-3.8417c32.746 18.771 23.676 35.723-0.35327 52.025l-202.26-4.6496c-24.691-46.038-3.2668-85.489 13.949-125.54z"/>
+      <path d="m310.64 26.657-101.96 95.454h85.714l-8.9607-58.225z"/>
+      </g>
     </g>
   </symbol>
 
@@ -671,26 +640,22 @@
 
 <!-- ============ GATE ============ -->
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Wedding invitation cover">
-  <div class="drapes" aria-hidden="true">
-    <div class="drape drape--l"></div>
-    <div class="drape drape--r"></div>
-  </div>
   <div class="lantern-hang gl1" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
   <div class="lantern-hang gl2" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
   <div class="lantern-hang gl3" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
   <div class="lantern-hang gl4" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
-  <canvas class="garland gate-swag" data-seed="3" data-drops="j" data-clear="#doorway" data-band="28" data-swag="4" aria-hidden="true"></canvas>
+  <canvas class="garland gate-swag" data-seed="3" data-drops="j" data-clear="#doorway" data-band="22" data-swag="4" aria-hidden="true"></canvas>
 
   <div class="doorway" id="doorway">
-    <svg class="finial" aria-hidden="true"><use href="#kalash"/></svg>
+    <svg class="finial" aria-hidden="true"><use href="#ganesha"/></svg>
     <div class="door-glow" id="door-glow"></div>
     <div class="leaf leaf--l" id="leaf-l"><canvas></canvas></div>
     <div class="leaf leaf--r" id="leaf-r"><canvas></canvas></div>
     <svg class="arch-frame" id="arch-frame" aria-hidden="true">
-      <path fill="none" stroke="#C6AE7E" stroke-width="13" stroke-linejoin="round"/>
-      <path fill="none" stroke="url(#goldG)" stroke-width="9" stroke-linejoin="round"/>
-      <path fill="none" stroke="#DBA9B6" stroke-width="3" stroke-linejoin="round"/>
-      <path fill="none" stroke="#FFFCF6" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0 9"/>
+      <path fill="none" stroke="#D9C29A" stroke-width="9" stroke-linejoin="round"/>
+      <path fill="none" stroke="url(#goldG)" stroke-width="5.5" stroke-linejoin="round"/>
+      <path fill="none" stroke="#E2B8C4" stroke-width="2" stroke-linejoin="round"/>
+      <path fill="none" stroke="#FFFDFA" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="0 10"/>
     </svg>
     <div class="threshold"></div>
     <div class="door-text">
@@ -716,7 +681,7 @@
     </button>
   </div>
 
-  <canvas class="garland gate-floor" data-seed="37" data-band="36" aria-hidden="true"></canvas>
+  <canvas class="garland gate-floor" data-seed="37" data-band="24" aria-hidden="true"></canvas>
   <canvas class="bouquet bq-l" data-seed="51" data-side="l" aria-hidden="true"></canvas>
   <canvas class="bouquet bq-r" data-seed="52" data-side="r" aria-hidden="true"></canvas>
 </div>
@@ -878,7 +843,6 @@
         <div class="day-head"><h3 id="day-name"></h3><p id="day-meta"></p></div>
         <ol class="timeline" id="timeline"></ol>
         <canvas class="garland g-divider" data-seed="23" data-drops="1" data-band="30" data-taper="1" aria-hidden="true"></canvas>
-        <p class="dress" id="dress"></p>
       </div>
     </div>
   </section>
@@ -903,10 +867,8 @@
         </div>
       </div>
       <ul class="travel" id="travel-list">
-        <li><span class="km">~12 km</span><b>Kota Junction (KOTA)</b><span class="d">Direct trains from Delhi, Mumbai and Jaipur. Pickups arranged on request.</span></li>
-        <li><span class="km">~245 km</span><b>Jaipur International Airport (JAI)</b><span class="d">About four hours by road. Cabs can be booked through the family.</span></li>
-        <li><span class="km">~6 km</span><b>Nayapura Bus Stand</b><span class="d">Frequent buses from Udaipur, Ajmer and Indore.</span></li>
-        <li><span class="km">Nov</span><b>Weather to pack for</b><span class="d">Around 26&deg;C in the afternoon, 12&deg;C at night. Bring a shawl for the late phere.</span></li>
+        <li><span class="km">12 km</span><b>Kota Junction</b></li>
+        <li><span class="km">6 km</span><b>Nayapura Bus Stand</b></li>
       </ul>
     </div>
   </section>
@@ -1107,17 +1069,16 @@ function paintLeaf(cv,side,S){
   var L=side==='l',rand=rng(L?31:32);
   var g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#FFFDFB');g.addColorStop(.6,'#FDF4F6');g.addColorStop(1,'#F8E7EC');
   ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
-  ctx.fillStyle='rgba(190,160,100,.18)';
+  ctx.fillStyle='rgba(190,160,100,.12)';
   for(var y=10,row=0;y<h;y+=15,row++){for(var x=(row%2)*7.5+3;x<w;x+=15){ctx.beginPath();ctx.arc(x,y,1,0,TAU);ctx.fill();}}
   g=ctx.createLinearGradient(L?0:w,0,L?w:0,0);g.addColorStop(0,'rgba(180,140,120,.16)');g.addColorStop(.28,'rgba(180,140,120,0)');
   ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
-  var pad=Math.max(10,w*.07),top=S+pad,mid=top+(h-top)*.44;
-  goldFrame(ctx,pad,top,w-pad*2,mid-top-6);
-  goldFrame(ctx,pad,mid+6,w-pad*2,h-mid-6-pad);
+  var pad=Math.max(10,w*.08),top=S+pad;
+  goldFrame(ctx,pad,top,w-pad*2,h-top-pad);
   var sx=L?w-4:0;g=ctx.createLinearGradient(sx,0,sx+4,0);g.addColorStop(0,'#A9884A');g.addColorStop(.5,'#F2E3BE');g.addColorStop(1,'#A9884A');
   ctx.fillStyle=g;ctx.fillRect(sx,0,4,h);
-  vine(ctx,L?pad+13:w-pad-13,h-pad-12,top+10,L?1:-1,rand);
-  cluster(ctx,L?w*.56:w*.44,h-pad-28,w*.24,15,8,5,9,rand);
+  vine(ctx,L?pad+14:w-pad-14,h-pad-16,top+14,L?1:-1,rand);
+  cluster(ctx,L?w*.58:w*.42,h-pad-30,w*.2,12,5,4,7,rand);
 }
 
 function sparkle(ctx,x,y,r){
@@ -1368,22 +1329,22 @@ var DEFAULTS={
   gallery:[],
   guests:[],
   days:[
-    {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',dress:'Marigold & Mint',sw:['#F2A33A','#9ED3B2'],items:[
+    {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',items:[
       ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],
       ['04:30 PM','Mehendi begins','Henna artists for everyone who wants it'],
       ['06:30 PM','Chaat & chai','Kota kachori, golgappe and masala chai'],
       ['08:00 PM','Dholak night','Folk songs led by the aunties']]},
-    {id:'sangeet',mon:'Nov',num:'20',tab:'Haldi & Sangeet',title:'Haldi & Sangeet',date:'Friday, 20 November',place:'Poolside Courtyard & Shubh Banquet Hall',dress:'Sunshine Yellow, then Indigo',sw:['#F2C430','#3E4C86'],items:[
+    {id:'sangeet',mon:'Nov',num:'20',tab:'Haldi & Sangeet',title:'Haldi & Sangeet',date:'Friday, 20 November',place:'Poolside Courtyard & Shubh Banquet Hall',items:[
       ['10:30 AM','Haldi','Turmeric, marigolds and a little mischief'],
       ['01:00 PM','Lunch','A Rajasthani thali by the pool'],
       ['07:30 PM','Sangeet','Family performances, rehearsed and otherwise'],
       ['09:30 PM','Dinner & dance','Open floor until the DJ gives up']]},
-    {id:'vivah',mon:'Nov',num:'21',tab:'Vivah',title:'Vivah · The Wedding',date:'Saturday, 21 November',place:'Main Gate & Mandap Lawn',dress:'Traditional Red & Gold',sw:['#A3122E','#D9B25C'],items:[
+    {id:'vivah',mon:'Nov',num:'21',tab:'Vivah',title:'Vivah · The Wedding',date:'Saturday, 21 November',place:'Main Gate & Mandap Lawn',items:[
       ['07:00 PM','Baraat','The groom arrives with band, ghodi and dancing'],
       ['08:30 PM','Varmala','Garlands exchanged on the stage'],
       ['09:00 PM','Dinner','Served on the lawn through the night'],
       ['11:52 PM','Phere','The saat phere at the Vivah Muhurat']]},
-    {id:'reception',mon:'Nov',num:'22',tab:'Reception',title:'Reception',date:'Sunday, 22 November',place:'Chambal Hall',dress:'Pastels & Ivory',sw:['#F4C9D3','#FFF4E2'],items:[
+    {id:'reception',mon:'Nov',num:'22',tab:'Reception',title:'Reception',date:'Sunday, 22 November',place:'Chambal Hall',items:[
       ['07:30 PM','Guest arrival','Welcome and seating'],
       ['08:00 PM','The couple arrives','Mr & Mrs, for the first time'],
       ['08:30 PM','Blessings','Family greetings and photographs'],
@@ -1439,7 +1400,6 @@ function selectDay(i,focus){
   $('#timeline').innerHTML=d.items.map(function(it,k){
     return '<li style="animation-delay:'+(k*70)+'ms"><span class="t-time">'+esc(it[0])+'</span><span class="t-dot" aria-hidden="true"></span><div class="t-body"><h4>'+esc(it[1])+'</h4><p>'+esc(it[2])+'</p></div></li>';
   }).join('');
-  $('#dress').innerHTML='<span class="sw" style="background:'+esc(d.sw[0])+'"></span><span class="sw" style="background:'+esc(d.sw[1])+'"></span> Dress code &middot; '+esc(d.dress);
 }
 
 /* ---------- gallery ---------- */

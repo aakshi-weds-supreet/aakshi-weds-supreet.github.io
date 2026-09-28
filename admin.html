@@ -65,8 +65,6 @@
   @media (max-width:600px){.item-row{grid-template-columns:1fr 1fr;grid-template-areas:"time del" "title title" "note note"}
     .item-row input:nth-child(1){grid-area:time}.item-row input:nth-child(2){grid-area:title}
     .item-row input:nth-child(3){grid-area:note}.item-row button{grid-area:del;justify-self:end}}
-  .swatch-row{display:flex;gap:10px;align-items:center;margin-top:8px}
-  .swatch-row input[type=color]{width:38px;height:32px;border:1px solid var(--line);border-radius:6px;padding:0;background:none}
   .guest-card{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
   .day-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .day-checks label{
@@ -209,7 +207,7 @@
 
   <div class="card">
     <h2>Wedding days</h2>
-    <p class="hint">Each card is one function &mdash; its tab, schedule, and dress-code colours.</p>
+    <p class="hint">Each card is one day &mdash; its tab label and its schedule of events.</p>
     <div id="days-list"></div>
     <div style="margin-top:12px"><button class="btn btn-line btn-sm" id="add-day" type="button">+ Add a day</button></div>
   </div>
@@ -412,18 +410,11 @@ function renderDays(){
       '<label>Title</label><input type="text" data-k="title" value="'+escAttr(d.title)+'">'+
       '<div class="row"><div><label>Date line</label><input type="text" data-k="date" value="'+escAttr(d.date)+'"></div>'+
       '<div><label>Place</label><input type="text" data-k="place" value="'+escAttr(d.place)+'"></div></div>'+
-      '<label>Dress code text</label><input type="text" data-k="dress" value="'+escAttr(d.dress)+'">'+
-      '<label>Dress code colours</label>'+
-      '<div class="swatch-row"><input type="color" data-sw="0" value="'+toHex(d.sw[0])+'">'+
-      '<input type="color" data-sw="1" value="'+toHex(d.sw[1])+'"><span class="small muted">shown as two dots on the site</span></div>'+
       '<label>Schedule</label><div class="items"></div>'+
       '<div style="margin-top:8px"><button class="btn btn-line btn-sm" type="button" data-act="add-item">+ Add event</button></div>';
 
     $$('input[data-k]',el).forEach(function(inp){
       inp.addEventListener('input',function(){d[inp.dataset.k]=inp.value;});
-    });
-    $$('input[data-sw]',el).forEach(function(inp){
-      inp.addEventListener('input',function(){d.sw[+inp.dataset.sw]=inp.value;});
     });
     el.querySelector('[data-act=del-day]').addEventListener('click',function(){state.days.splice(di,1);renderDays();});
     el.querySelector('[data-act=add-item]').addEventListener('click',function(){d.items.push(['','','']);renderItems(d,el.querySelector('.items'));});
@@ -450,7 +441,7 @@ function renderItems(d,wrap){
   });
 }
 $('#add-day').addEventListener('click',function(){
-  state.days.push({id:'day'+Date.now(),mon:'Nov',num:'',tab:'New day',title:'New day',date:'',place:'',dress:'',sw:['#C99A3F','#A10D35'],items:[]});
+  state.days.push({id:'day'+Date.now(),mon:'Nov',num:'',tab:'New day',title:'New day',date:'',place:'',items:[]});
   renderDays();
 });
 
@@ -536,14 +527,6 @@ $('#add-guest').addEventListener('click',function(){
   state.guests.push({name:'',code:'',items:allFunctionKeys()});
   renderGuests();
 });
-function toHex(c){
-  if(!c)return '#C99A3F';
-  if(/^#/.test(c)&&(c.length===7))return c;
-  var d=document.createElement('div');d.style.color=c;document.body.appendChild(d);
-  var rgb=getComputedStyle(d).color.match(/\d+/g);document.body.removeChild(d);
-  if(!rgb)return '#C99A3F';
-  return '#'+rgb.slice(0,3).map(function(n){return (+n).toString(16).padStart(2,'0');}).join('');
-}
 
 /* ---------- gallery ---------- */
 function renderGallery(){
