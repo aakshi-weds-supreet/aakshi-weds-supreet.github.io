@@ -68,6 +68,18 @@
   .swatch-row{display:flex;gap:10px;align-items:center;margin-top:8px}
   .swatch-row input[type=color]{width:38px;height:32px;border:1px solid var(--line);border-radius:6px;padding:0;background:none}
   .contact-card,.gallery-item{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
+  .guest-card{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
+  .day-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .day-checks label{
+    display:flex;align-items:center;gap:6px;margin:0;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+    font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;background:#fff;
+  }
+  .day-checks input{width:auto;margin:0}
+  .guest-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .link-box{
+    display:flex;gap:8px;align-items:center;margin-top:8px;padding:8px 10px;background:var(--ivory-2);
+    border-radius:7px;font-size:12px;color:var(--gold-deep);word-break:break-all;
+  }
   .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
   .gphoto{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#FFFDF9}
   .gphoto img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#eee}
@@ -205,6 +217,13 @@
   </div>
 
   <div class="card">
+    <h2>Guest links</h2>
+    <p class="hint">Not every guest is invited to every function. Create a group for each set of guests, tick which days they're invited to, and share their personal link. Anyone opening the plain site link (with nothing after the address) still sees every function &mdash; this only affects people who open a personal link you give them.</p>
+    <div id="guests-list"></div>
+    <div style="margin-top:12px"><button class="btn btn-line btn-sm" id="add-guest" type="button">+ Add guest group</button></div>
+  </div>
+
+  <div class="card">
     <h2>Photos</h2>
     <p class="hint">Add photos here to replace the illustrated story carousel on the site. Leave empty to keep the illustrations.</p>
     <div class="drop" id="drop-zone">Tap to choose photos, or drag them here<br><span class="small">Large photos are resized automatically</span></div>
@@ -250,8 +269,9 @@ var DEFAULTS={
   hashtag:'#AakshiWedsSupreet',
   footerNote:'With love, the two families',
   calendarUrl:'',
-  contacts:[],gallery:[],days:[]
+  contacts:[],gallery:[],days:[],guests:[]
 };
+var SITE_URL='https://aakshi-weds-supreet.github.io/';
 
 var token=null,dataSha=null,state=null,tokenSource=null;
 
@@ -435,6 +455,7 @@ function renderDays(){
     renderItems(d,el.querySelector('.items'));
     wrap.appendChild(el);
   });
+  renderGuests();
 }
 function renderItems(d,wrap){
   wrap.innerHTML='';
@@ -456,6 +477,58 @@ function renderItems(d,wrap){
 $('#add-day').addEventListener('click',function(){
   state.days.push({id:'day'+Date.now(),mon:'Nov',num:'',tab:'New day',title:'New day',date:'',place:'',dress:'',sw:['#C99A3F','#A10D35'],items:[]});
   renderDays();
+});
+
+/* ---------- guests ---------- */
+function slugify(s){return String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24);}
+function renderGuests(){
+  var wrap=$('#guests-list');wrap.innerHTML='';
+  if(!state.days.length){
+    wrap.innerHTML='<p class="small muted">Add at least one wedding day above before creating guest groups.</p>';
+    return;
+  }
+  state.guests.forEach(function(g,gi){
+    if(!g.days)g.days=state.days.map(function(d){return d.id;});
+    var el=document.createElement('div');el.className='guest-card';
+    var checks=state.days.map(function(d){
+      var checked=g.days.indexOf(d.id)>-1;
+      return '<label><input type="checkbox" data-day="'+escAttr(d.id)+'" '+(checked?'checked':'')+'>'+escAttr(d.title)+'</label>';
+    }).join('');
+    el.innerHTML=
+      '<div class="row"><div><label>Group name (shown to them)</label><input type="text" data-k="name" value="'+escAttr(g.name)+'" placeholder="e.g. Sharma Family"></div>'+
+      '<div><label>Link code (letters/numbers, no spaces)</label><input type="text" data-k="code" value="'+escAttr(g.code)+'" placeholder="e.g. sharma-family"></div></div>'+
+      '<label>Invited to</label><div class="day-checks">'+checks+'</div>'+
+      '<div class="guest-foot"><button class="btn btn-line btn-sm" type="button" data-act="copy">Copy their link</button>'+
+      '<button class="btn btn-danger btn-sm" type="button" data-act="remove">Remove group</button></div>'+
+      '<div class="link-box" data-role="linkbox" hidden></div>';
+
+    var nameInp=el.querySelector('[data-k=name]'),codeInp=el.querySelector('[data-k=code]');
+    nameInp.addEventListener('input',function(){
+      if(!g.code||g.code===slugify(g.name))codeInp.value=slugify(nameInp.value);
+      g.name=nameInp.value;g.code=codeInp.value;
+    });
+    codeInp.addEventListener('input',function(){g.code=slugify(codeInp.value);codeInp.value=g.code;});
+    $$('input[data-day]',el).forEach(function(cb){
+      cb.addEventListener('change',function(){
+        var id=cb.dataset.day;
+        if(cb.checked){if(g.days.indexOf(id)<0)g.days.push(id);}
+        else{g.days=g.days.filter(function(x){return x!==id;});}
+      });
+    });
+    el.querySelector('[data-act=remove]').addEventListener('click',function(){state.guests.splice(gi,1);renderGuests();});
+    el.querySelector('[data-act=copy]').addEventListener('click',function(){
+      var box=el.querySelector('[data-role=linkbox]');
+      if(!g.code){box.hidden=false;box.textContent='Give this group a link code first.';return;}
+      var link=SITE_URL+'?g='+encodeURIComponent(g.code);
+      box.hidden=false;box.textContent=link;
+      try{navigator.clipboard.writeText(link);}catch(e){}
+    });
+    wrap.appendChild(el);
+  });
+}
+$('#add-guest').addEventListener('click',function(){
+  state.guests.push({name:'',code:'',days:state.days.map(function(d){return d.id;})});
+  renderGuests();
 });
 function toHex(c){
   if(!c)return '#C99A3F';

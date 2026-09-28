@@ -451,7 +451,7 @@
   .muhurat{margin:26px 0 0;font-family:var(--f-serif);font-style:italic;font-size:1.2rem;color:rgba(255,249,241,.9)}
 
   /* ---------- timeline ---------- */
-  .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:620px;margin:36px auto 0}
+  .tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;max-width:620px;margin:36px auto 0}
   .tab{
     font:inherit;border:1px solid var(--hair);background:var(--ivory);color:var(--maroon-ink);
     padding:12px 4px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;
@@ -859,6 +859,7 @@
         <p class="eyebrow">The celebration</p>
         <h2 class="h2">Our Wedding Days</h2>
         <div class="divider"><i></i></div>
+        <p class="lead" id="invite-note" hidden></p>
       </div>
       <div class="tabs" id="tabs" role="tablist" aria-label="Choose a day"></div>
       <div class="day" id="day" role="tabpanel">
@@ -1392,6 +1393,7 @@ var DEFAULTS={
     {label:"Groom's family",name:'Aditya Sharma',phone:'+91 94140 00000'}
   ],
   gallery:[],
+  guests:[],
   days:[
     {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',dress:'Marigold & Mint',sw:['#F2A33A','#9ED3B2'],items:[
       ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],
@@ -1440,7 +1442,7 @@ function startCountdown(iso,muhuratText){
 
 /* ---------- timeline ---------- */
 var tabsEl=$('#tabs'),CUR_DAYS=[];
-function buildDays(days){
+function buildDays(days,defaultIndex){
   CUR_DAYS=days;tabsEl.innerHTML='';
   days.forEach(function(d,i){
     var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+(d.id||i);
@@ -1448,7 +1450,7 @@ function buildDays(days){
     b.innerHTML='<span>'+esc(d.mon)+'</span><b>'+esc(d.num)+'</b><em>'+esc(d.tab)+'</em>';
     b.addEventListener('click',function(){selectDay(i,true);});tabsEl.appendChild(b);
   });
-  selectDay(Math.min(2,days.length-1),false);
+  selectDay(Math.max(0,Math.min(defaultIndex==null?2:defaultIndex,days.length-1)),false);
 }
 tabsEl.addEventListener('keydown',function(e){
   var tabs=$$('.tab',tabsEl),i=tabs.indexOf(document.activeElement);if(i<0)return;
@@ -1523,7 +1525,22 @@ function applyData(data){
   $('#f-tag').textContent=data.hashtag+' · '+data.weddingDateNum+'.'+data.weddingMonthNum+'.'+data.weddingYear;
   $('#f-note').textContent=data.footerNote;
   document.title=data.brideName+' & '+data.groomName;
-  buildDays(data.days);
+
+  var activeDays=data.days,guest=null,note=$('#invite-note');
+  try{
+    var code=new URLSearchParams(location.search).get('g');
+    if(code)guest=(data.guests||[]).filter(function(g){return g.code===code;})[0]||null;
+  }catch(e){}
+  if(guest&&guest.days&&guest.days.length){
+    activeDays=data.days.filter(function(d){return guest.days.indexOf(d.id)>-1;});
+    if(activeDays.length){
+      note.textContent='This link is just for '+guest.name+' — you’re warmly invited to '+
+        (activeDays.length===1?activeDays[0].title:activeDays.slice(0,-1).map(function(d){return d.title;}).join(', ')+' and '+activeDays[activeDays.length-1].title)+'.';
+      note.hidden=false;
+    }
+  }
+  if(!activeDays.length)activeDays=data.days;
+  buildDays(activeDays,guest?0:2);
   buildContacts(data.contacts);
   buildGallery(data.gallery);
   startCountdown(data.weddingDateISO,data.muhuratFull);

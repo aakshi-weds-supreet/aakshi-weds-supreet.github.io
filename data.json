@@ -25,6 +25,7 @@
     { "label": "Groom's family", "name": "Aditya Sharma", "phone": "+91 94140 00000" }
   ],
   "gallery": [],
+  "guests": [],
   "days": [
     {
       "id": "mehendi", "mon": "Nov", "num": "19", "tab": "Mehendi", "title": "Mehendi",
