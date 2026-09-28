@@ -33,7 +33,17 @@
     }
   ],
   "gallery": [],
-  "guests": [],
+  "guests": [
+    {
+      "name": "tesst1",
+      "code": "tesst1",
+      "days": [
+        "reception",
+        "sangeet",
+        "mehendi"
+      ]
+    }
+  ],
   "days": [
     {
       "id": "mehendi",
