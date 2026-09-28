@@ -75,6 +75,16 @@
     font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;background:#fff;
   }
   .day-checks input{width:auto;margin:0}
+  .fn-group{margin-top:10px}
+  .fn-group-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .fn-group-head b{font-size:12.5px;color:var(--gold-deep);text-transform:uppercase;letter-spacing:.05em}
+  .fn-group-head button{font-size:11px;background:none;border:0;color:var(--wine);text-decoration:underline;cursor:pointer;padding:0}
+  .fn-checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .fn-checks label{
+    display:flex;align-items:center;gap:6px;margin:0;padding:5px 9px;border:1px solid var(--line);border-radius:999px;
+    font-size:12px;font-weight:500;color:var(--ink);cursor:pointer;background:#fff;
+  }
+  .fn-checks input{width:auto;margin:0}
   .guest-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
   .link-box{
     display:flex;gap:8px;align-items:center;margin-top:8px;padding:8px 10px;background:var(--ivory-2);
@@ -218,7 +228,7 @@
 
   <div class="card">
     <h2>Guest links</h2>
-    <p class="hint">Not every guest is invited to every function. Create a group for each set of guests, tick which days they're invited to, and share their personal link. Anyone opening the plain site link (with nothing after the address) still sees every function &mdash; this only affects people who open a personal link you give them.</p>
+    <p class="hint">Not every guest is invited to every function. Create a group for each set of guests, tick which functions they're invited to, and share their personal link. Anyone opening the plain site link (with nothing after the address) still sees every function &mdash; this only affects people who open a personal link you give them.<br><b>Remember to click Save changes at the bottom after editing this section</b> &mdash; a copied link only works once it's been saved.</p>
     <div id="guests-list"></div>
     <div style="margin-top:12px"><button class="btn btn-line btn-sm" id="add-guest" type="button">+ Add guest group</button></div>
   </div>
@@ -481,23 +491,41 @@ $('#add-day').addEventListener('click',function(){
 
 /* ---------- guests ---------- */
 function slugify(s){return String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24);}
+function allFunctionKeys(){
+  var keys=[];
+  state.days.forEach(function(d){d.items.forEach(function(it,ix){keys.push(d.id+':'+ix);});});
+  return keys;
+}
+function migrateGuest(g){
+  if(!g.items){
+    g.items=(g.days&&g.days.length)
+      ? (function(){var keys=[];state.days.forEach(function(d){if(g.days.indexOf(d.id)>-1)d.items.forEach(function(it,ix){keys.push(d.id+':'+ix);});});return keys;})()
+      : allFunctionKeys();
+  }
+}
 function renderGuests(){
   var wrap=$('#guests-list');wrap.innerHTML='';
-  if(!state.days.length){
-    wrap.innerHTML='<p class="small muted">Add at least one wedding day above before creating guest groups.</p>';
+  if(!state.days.length||!state.days.some(function(d){return d.items.length;})){
+    wrap.innerHTML='<p class="small muted">Add at least one wedding day with events above before creating guest groups.</p>';
     return;
   }
   state.guests.forEach(function(g,gi){
-    if(!g.days)g.days=state.days.map(function(d){return d.id;});
+    migrateGuest(g);
     var el=document.createElement('div');el.className='guest-card';
-    var checks=state.days.map(function(d){
-      var checked=g.days.indexOf(d.id)>-1;
-      return '<label><input type="checkbox" data-day="'+escAttr(d.id)+'" '+(checked?'checked':'')+'>'+escAttr(d.title)+'</label>';
+    var groups=state.days.map(function(d){
+      if(!d.items.length)return '';
+      var checks=d.items.map(function(it,ix){
+        var key=d.id+':'+ix,checked=g.items.indexOf(key)>-1;
+        return '<label><input type="checkbox" data-key="'+escAttr(key)+'" '+(checked?'checked':'')+'>'+escAttr(it[1]||'(untitled)')+'</label>';
+      }).join('');
+      return '<div class="fn-group"><div class="fn-group-head"><b>'+escAttr(d.title)+'</b>'+
+        '<span><button type="button" data-all="'+escAttr(d.id)+'">all</button> &middot; <button type="button" data-none="'+escAttr(d.id)+'">none</button></span></div>'+
+        '<div class="fn-checks">'+checks+'</div></div>';
     }).join('');
     el.innerHTML=
       '<div class="row"><div><label>Group name (shown to them)</label><input type="text" data-k="name" value="'+escAttr(g.name)+'" placeholder="e.g. Sharma Family"></div>'+
       '<div><label>Link code (letters/numbers, no spaces)</label><input type="text" data-k="code" value="'+escAttr(g.code)+'" placeholder="e.g. sharma-family"></div></div>'+
-      '<label>Invited to</label><div class="day-checks">'+checks+'</div>'+
+      '<label>Invited to which functions</label>'+groups+
       '<div class="guest-foot"><button class="btn btn-line btn-sm" type="button" data-act="copy">Copy their link</button>'+
       '<button class="btn btn-danger btn-sm" type="button" data-act="remove">Remove group</button></div>'+
       '<div class="link-box" data-role="linkbox" hidden></div>';
@@ -508,11 +536,24 @@ function renderGuests(){
       g.name=nameInp.value;g.code=codeInp.value;
     });
     codeInp.addEventListener('input',function(){g.code=slugify(codeInp.value);codeInp.value=g.code;});
-    $$('input[data-day]',el).forEach(function(cb){
+    $$('input[data-key]',el).forEach(function(cb){
       cb.addEventListener('change',function(){
-        var id=cb.dataset.day;
-        if(cb.checked){if(g.days.indexOf(id)<0)g.days.push(id);}
-        else{g.days=g.days.filter(function(x){return x!==id;});}
+        var key=cb.dataset.key;
+        if(cb.checked){if(g.items.indexOf(key)<0)g.items.push(key);}
+        else{g.items=g.items.filter(function(x){return x!==key;});}
+      });
+    });
+    $$('[data-all]',el).forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var d=state.days.filter(function(x){return x.id===btn.dataset.all;})[0];
+        d.items.forEach(function(it,ix){var key=d.id+':'+ix;if(g.items.indexOf(key)<0)g.items.push(key);});
+        renderGuests();
+      });
+    });
+    $$('[data-none]',el).forEach(function(btn){
+      btn.addEventListener('click',function(){
+        g.items=g.items.filter(function(k){return k.indexOf(btn.dataset.none+':')!==0;});
+        renderGuests();
       });
     });
     el.querySelector('[data-act=remove]').addEventListener('click',function(){state.guests.splice(gi,1);renderGuests();});
@@ -520,14 +561,14 @@ function renderGuests(){
       var box=el.querySelector('[data-role=linkbox]');
       if(!g.code){box.hidden=false;box.textContent='Give this group a link code first.';return;}
       var link=SITE_URL+'?g='+encodeURIComponent(g.code);
-      box.hidden=false;box.textContent=link;
+      box.hidden=false;box.innerHTML='<div>'+link+'</div><div style="margin-top:4px;font-weight:600">Copied. Click “Save changes” below now, or this link won’t work yet.</div>';
       try{navigator.clipboard.writeText(link);}catch(e){}
     });
     wrap.appendChild(el);
   });
 }
 $('#add-guest').addEventListener('click',function(){
-  state.guests.push({name:'',code:'',days:state.days.map(function(d){return d.id;})});
+  state.guests.push({name:'',code:'',items:allFunctionKeys()});
   renderGuests();
 });
 function toHex(c){

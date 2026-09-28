@@ -1531,12 +1531,24 @@ function applyData(data){
     var code=new URLSearchParams(location.search).get('g');
     if(code)guest=(data.guests||[]).filter(function(g){return g.code===code;})[0]||null;
   }catch(e){}
-  if(guest&&guest.days&&guest.days.length){
-    activeDays=data.days.filter(function(d){return guest.days.indexOf(d.id)>-1;});
-    if(activeDays.length){
-      note.textContent='This link is just for '+guest.name+' — you’re warmly invited to '+
-        (activeDays.length===1?activeDays[0].title:activeDays.slice(0,-1).map(function(d){return d.title;}).join(', ')+' and '+activeDays[activeDays.length-1].title)+'.';
-      note.hidden=false;
+  if(guest){
+    var itemSet=null;
+    if(guest.items&&guest.items.length){itemSet={};guest.items.forEach(function(k){itemSet[k]=true;});}
+    else if(guest.days&&guest.days.length){
+      itemSet={};
+      data.days.forEach(function(d){if(guest.days.indexOf(d.id)>-1)d.items.forEach(function(it,ix){itemSet[d.id+':'+ix]=true;});});
+    }
+    if(itemSet){
+      var filtered=[];
+      data.days.forEach(function(d){
+        var items=d.items.filter(function(it,ix){return itemSet[d.id+':'+ix];});
+        if(items.length)filtered.push(Object.assign({},d,{items:items}));
+      });
+      activeDays=filtered;
+      if(activeDays.length){
+        note.textContent='This link is just for '+guest.name+' — it shows only the functions you’re invited to.';
+        note.hidden=false;
+      }
     }
   }
   if(!activeDays.length)activeDays=data.days;
