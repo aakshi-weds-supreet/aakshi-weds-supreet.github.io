@@ -67,7 +67,6 @@
     .item-row input:nth-child(3){grid-area:note}.item-row button{grid-area:del;justify-self:end}}
   .swatch-row{display:flex;gap:10px;align-items:center;margin-top:8px}
   .swatch-row input[type=color]{width:38px;height:32px;border:1px solid var(--line);border-radius:6px;padding:0;background:none}
-  .contact-card,.gallery-item{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
   .guest-card{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
   .day-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .day-checks label{
@@ -209,17 +208,6 @@
   </div>
 
   <div class="card">
-    <h2>RSVP</h2>
-    <label>Reply-by line</label>
-    <input type="text" id="f-rsvpBy">
-    <label>Gift note</label>
-    <input type="text" id="f-giftNote">
-    <label>Contacts</label>
-    <div id="contacts-list"></div>
-    <div style="margin-top:12px"><button class="btn btn-line btn-sm" id="add-contact" type="button">+ Add contact</button></div>
-  </div>
-
-  <div class="card">
     <h2>Wedding days</h2>
     <p class="hint">Each card is one function &mdash; its tab, schedule, and dress-code colours.</p>
     <div id="days-list"></div>
@@ -274,12 +262,10 @@ var DEFAULTS={
   weddingMonthText:'the twenty-first of November',
   muhuratNote:'Vivah Muhurat · 11:52 PM',
   muhuratFull:'Vivah Muhurat · 11:52 PM · Saturday, 21 November 2026',
-  rsvpBy:'Please reply by 25 October 2026',
-  giftNote:'Your blessings are the only gift we ask for.',
   hashtag:'#AakshiWedsSupreet',
   footerNote:'With love, the two families',
   calendarUrl:'',
-  contacts:[],gallery:[],days:[],guests:[]
+  gallery:[],days:[],guests:[]
 };
 var SITE_URL='https://aakshi-weds-supreet.github.io/';
 
@@ -398,7 +384,6 @@ function renderForm(){
   bindText('#f-venueNote','venueNote');
   bindText('#f-weddingDay','weddingDay');bindText('#f-muhuratNote','muhuratNote');
   bindText('#f-muhuratFull','muhuratFull');bindText('#f-calendarUrl','calendarUrl');
-  bindText('#f-rsvpBy','rsvpBy');bindText('#f-giftNote','giftNote');
 
   var dl=$('#f-dateLocal');dl.value=isoToLocal(state.weddingDateISO);
   dl.addEventListener('change',function(){
@@ -409,28 +394,8 @@ function renderForm(){
     state.weddingYear=String(d.getFullYear());
   });
 
-  renderContacts();renderDays();renderGallery();
+  renderDays();renderGallery();
 }
-
-/* ---------- contacts ---------- */
-function renderContacts(){
-  var wrap=$('#contacts-list');wrap.innerHTML='';
-  state.contacts.forEach(function(c,i){
-    var d=document.createElement('div');d.className='contact-card';
-    d.innerHTML=
-      '<div class="row3">'+
-      '<div><label>Label</label><input type="text" data-k="label" value="'+escAttr(c.label)+'"></div>'+
-      '<div><label>Name</label><input type="text" data-k="name" value="'+escAttr(c.name)+'"></div>'+
-      '<div><label>Phone</label><input type="text" data-k="phone" value="'+escAttr(c.phone)+'"></div>'+
-      '</div><div style="margin-top:8px;text-align:right"><button class="btn btn-danger btn-sm" type="button">Remove</button></div>';
-    $$('input',d).forEach(function(inp){inp.addEventListener('input',function(){c[inp.dataset.k]=inp.value;});});
-    $('button',d).addEventListener('click',function(){state.contacts.splice(i,1);renderContacts();});
-    wrap.appendChild(d);
-  });
-}
-$('#add-contact').addEventListener('click',function(){
-  state.contacts.push({label:'',name:'',phone:''});renderContacts();
-});
 
 /* ---------- days ---------- */
 function renderDays(){
