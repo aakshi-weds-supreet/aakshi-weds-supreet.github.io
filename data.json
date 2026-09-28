@@ -41,6 +41,20 @@
         "reception",
         "sangeet",
         "mehendi"
+      ],
+      "items": [
+        "mehendi:0",
+        "mehendi:1",
+        "mehendi:2",
+        "mehendi:3",
+        "sangeet:0",
+        "sangeet:1",
+        "sangeet:2",
+        "sangeet:3",
+        "reception:0",
+        "reception:1",
+        "reception:2",
+        "reception:3"
       ]
     }
   ],
@@ -58,28 +72,7 @@
         "#F2A33A",
         "#9ED3B2"
       ],
-      "items": [
-        [
-          "04:00 PM",
-          "Guests arrive",
-          "Welcome sharbat and settling in"
-        ],
-        [
-          "04:30 PM",
-          "Mehendi begins",
-          "Henna artists for everyone who wants it"
-        ],
-        [
-          "06:30 PM",
-          "Chaat & chai",
-          "Kota kachori, golgappe and masala chai"
-        ],
-        [
-          "08:00 PM",
-          "Dholak night",
-          "Folk songs led by the aunties"
-        ]
-      ]
+      "items": []
     },
     {
       "id": "sangeet",
