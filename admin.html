@@ -21,7 +21,7 @@
   .card .hint{margin:0 0 14px;font-size:13px;color:var(--muted)}
   label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:14px 0 5px}
   label:first-child{margin-top:0}
-  input[type=text],input[type=password],input[type=datetime-local],textarea{
+  input[type=text],input[type=tel],input[type=password],input[type=datetime-local],textarea{
     width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:7px;
     font:inherit;font-size:14.5px;background:#fff;color:var(--ink);
   }
@@ -66,6 +66,12 @@
     .item-row input:nth-child(1){grid-area:time}.item-row input:nth-child(2){grid-area:title}
     .item-row input:nth-child(3){grid-area:note}.item-row button{grid-area:del;justify-self:end}}
   .guest-card{border:1px solid var(--line);border-radius:9px;padding:12px;margin-top:10px;background:#FFFDF9}
+  .rsvp-side{border:1px solid var(--line);border-radius:9px;padding:14px;margin-top:12px;background:#FFFDF9}
+  .rsvp-side > b{font-size:14.5px;color:var(--wine)}
+  .contact-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;margin-top:8px}
+  @media (max-width:600px){.contact-row{grid-template-columns:1fr auto;grid-template-areas:"name del" "phone phone" "rel rel";padding-bottom:10px;border-bottom:1px dashed var(--line)}
+    .contact-row input:nth-child(1){grid-area:name}.contact-row input:nth-child(2){grid-area:phone}
+    .contact-row input:nth-child(3){grid-area:rel}.contact-row button{grid-area:del}}
   .day-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .day-checks label{
     display:flex;align-items:center;gap:6px;margin:0;padding:6px 10px;border:1px solid var(--line);border-radius:999px;
@@ -197,6 +203,21 @@
   </div>
 
   <div class="card">
+    <h2>RSVP contacts</h2>
+    <p class="hint">These people are listed on the site in an RSVP section after the venue, with their mobile numbers. Guests only see the list &mdash; there is nothing for them to fill in or submit. Tapping a number on a phone starts a call. Leave both sides empty to hide the section.</p>
+    <div class="rsvp-side">
+      <b>Bride&rsquo;s side</b>
+      <div id="rsvp-bride"></div>
+      <div style="margin-top:10px"><button class="btn btn-line btn-sm" id="add-rsvp-bride" type="button">+ Add contact</button></div>
+    </div>
+    <div class="rsvp-side">
+      <b>Groom&rsquo;s side</b>
+      <div id="rsvp-groom"></div>
+      <div style="margin-top:10px"><button class="btn btn-line btn-sm" id="add-rsvp-groom" type="button">+ Add contact</button></div>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>Date &amp; muhurat</h2>
     <p class="hint">This date drives the live countdown and the scratch-card reveal. Changing it fills in the day, the date in words and the calendar link for you &mdash; you can still edit any of them by hand.</p>
     <label>Wedding date &amp; time</label>
@@ -275,7 +296,8 @@ var DEFAULTS={
   hashtag:'#AakshiWedsSupreet',
   footerNote:'With love, the two families',
   calendarUrl:'',
-  gallery:[],days:[],guests:[]
+  gallery:[],days:[],guests:[],
+  rsvp:{bride:[],groom:[]}
 };
 var SITE_URL='https://aakshi-weds-supreet.github.io/';
 
@@ -465,7 +487,7 @@ function renderForm(){
   });
   refreshDateHints();
 
-  renderDays();renderGallery();
+  renderDays();renderGallery();renderRsvp();
 }
 
 /* ---------- days ---------- */
@@ -632,6 +654,38 @@ function renderGuests(){
 $('#add-guest').addEventListener('click',function(){
   state.guests.push({name:'',code:'',items:allFunctionKeys()});
   renderGuests();
+});
+
+/* ---------- rsvp contacts ---------- */
+function rsvpLists(){
+  if(!state.rsvp||typeof state.rsvp!=='object')state.rsvp={};
+  ['bride','groom'].forEach(function(k){if(!Array.isArray(state.rsvp[k]))state.rsvp[k]=[];});
+  return state.rsvp;
+}
+function renderRsvp(){
+  var rs=rsvpLists();
+  ['bride','groom'].forEach(function(side){
+    var wrap=$('#rsvp-'+side),list=rs[side];wrap.innerHTML='';
+    if(!list.length){wrap.innerHTML='<p class="small muted" style="margin:6px 0 0">No contacts yet.</p>';return;}
+    list.forEach(function(c,i){
+      var el=document.createElement('div');el.className='contact-row';
+      el.innerHTML=
+        '<input type="text" data-k="name" placeholder="Name" aria-label="Name" value="'+escAttr(c.name)+'">'+
+        '<input type="tel" data-k="phone" placeholder="Mobile number" aria-label="Mobile number" value="'+escAttr(c.phone)+'">'+
+        '<input type="text" data-k="relation" placeholder="Relation, e.g. Uncle" aria-label="Relation" value="'+escAttr(c.relation)+'">'+
+        '<button class="btn btn-danger btn-sm" type="button">Remove</button>';
+      $$('input',el).forEach(function(inp){inp.addEventListener('input',function(){c[inp.dataset.k]=inp.value;});});
+      $('button',el).addEventListener('click',function(){list.splice(i,1);renderRsvp();});
+      wrap.appendChild(el);
+    });
+  });
+}
+['bride','groom'].forEach(function(side){
+  $('#add-rsvp-'+side).addEventListener('click',function(){
+    rsvpLists()[side].push({name:'',phone:'',relation:''});
+    renderRsvp();
+    var rows=$$('#rsvp-'+side+' .contact-row');if(rows.length)rows[rows.length-1].querySelector('input').focus();
+  });
 });
 
 /* ---------- gallery ---------- */

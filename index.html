@@ -557,6 +557,28 @@
   .travel b{font-weight:600;font-size:16px;color:var(--plum)}
   @media (max-width:640px){.travel{grid-template-columns:1fr}}
 
+  /* ---------- rsvp ---------- */
+  .rsvp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:780px;margin:36px auto 0;text-align:center}
+  .rsvp-grid.one{grid-template-columns:minmax(0,440px);justify-content:center}
+  @media (max-width:640px){.rsvp-grid{grid-template-columns:minmax(0,1fr);gap:20px}}
+  #rsvp[hidden],.rsvp-col[hidden]{display:none}
+  .rsvp-col{position:relative;padding:30px clamp(18px,4vw,30px) 26px;color:var(--ink);
+    background:linear-gradient(165deg,#FFF3F8 0%,#FAD6E3 60%,#F4C1D3 100%);box-shadow:0 26px 52px -34px rgba(150,72,92,.45)}
+  .rsvp-col::before,.rsvp-col::after{content:"";position:absolute;pointer-events:none}
+  .rsvp-col::before{inset:9px;border:1.5px solid rgba(140,102,30,.62)}
+  .rsvp-col::after{inset:14px;border:1px solid rgba(140,102,30,.32)}
+  .rsvp-col .el{width:70px;margin:0 auto 4px}
+  .rsvp-col h3{position:relative;font-family:var(--f-display);font-weight:700;font-size:1.85rem;line-height:1.2;color:var(--plum);margin:0}
+  .rsvp-col ul{position:relative;list-style:none;margin:14px 0 0;padding:0}
+  .rsvp-col li{padding:16px 0;border-top:1px solid var(--hair)}
+  .rsvp-col li:first-child{border-top:0;padding-top:6px}
+  .rc-name{font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1.25;color:var(--plum);margin:0}
+  .rc-rel{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:1.16rem;color:var(--muted);margin:2px 0 0}
+  .rc-tel{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:9px 18px;border-radius:999px;
+    border:1.5px solid var(--gold);background:rgba(255,255,255,.7);color:var(--rose-deep);text-decoration:none;
+    font:700 14px/1 var(--f-label);letter-spacing:.1em;font-variant-numeric:lining-nums tabular-nums}
+  .rc-tel svg{width:15px;height:15px;flex:0 0 auto;color:var(--gold-deep)}
+
   /* ---------- footer ---------- */
   footer{
     position:relative;text-align:center;color:var(--ink);
@@ -897,7 +919,6 @@
         <p class="eyebrow">The celebration</p>
         <h2 class="h2">Our Wedding Days</h2>
         <div class="divider"><i></i></div>
-        <p class="lead" id="invite-note" hidden></p>
       </div>
       <div class="tabs" id="tabs" role="tablist" aria-label="Choose a day"></div>
       <div class="day" id="day" role="tabpanel">
@@ -942,6 +963,27 @@
         <li><span class="km">8 km</span><b>Kota Junction</b></li>
         <li><span class="km">3 km</span><b>Nayapura Bus Stand</b></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="sec" id="rsvp" hidden>
+    <div class="wrap center">
+      <p class="eyebrow">Kindly respond</p>
+      <h2 class="h2">RSVP</h2>
+      <div class="divider"><i></i></div>
+      <div class="rsvp-grid">
+        <div class="rsvp-col" id="rsvp-bride">
+          <span class="el flip" aria-hidden="true"><i></i></span>
+          <h3>Bride&rsquo;s Side</h3>
+          <ul></ul>
+        </div>
+        <div class="rsvp-col" id="rsvp-groom">
+          <span class="el" aria-hidden="true"><i></i></span>
+          <h3>Groom&rsquo;s Side</h3>
+          <ul></ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1439,6 +1481,26 @@ updateDots();
 
 /* ---------- content data (defaults; overridden by data.json if present) ---------- */
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+var TEL_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+// RSVP is a list of people to call on each side; guests have nothing to fill in
+function buildRsvp(rs){
+  rs=rs||{};
+  function fill(side){
+    var col=$('#rsvp-'+side);if(!col)return 0;
+    var list=(Array.isArray(rs[side])?rs[side]:[]).filter(function(c){return c&&(String(c.name||'').trim()||String(c.phone||'').trim());});
+    $('ul',col).innerHTML=list.map(function(c){
+      var tel=String(c.phone||'').replace(/[^\d+]/g,'');
+      return '<li><p class="rc-name">'+esc(c.name||'')+'</p>'+
+        (String(c.relation||'').trim()?'<p class="rc-rel">'+esc(c.relation)+'</p>':'')+
+        (tel?'<a class="rc-tel" href="tel:'+tel+'">'+TEL_ICON+esc(c.phone)+'</a>':'')+'</li>';
+    }).join('');
+    col.hidden=!list.length;
+    return list.length;
+  }
+  var nb=fill('bride'),ng=fill('groom');
+  $('#rsvp').hidden=!(nb||ng);
+  $('#rsvp .rsvp-grid').classList.toggle('one',!(nb&&ng));
+}
 var DEFAULTS={
   brideName:'Dr. Aakshi',groomName:'Supreet',
   brideFamily:'Daughter of Smt. Sunita & Shri Rajendra Chawla',
@@ -1455,6 +1517,7 @@ var DEFAULTS={
   calendarUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan',
   gallery:[],
   guests:[],
+  rsvp:{bride:[],groom:[]},
   days:[
     {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',items:[
       ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],
@@ -1577,7 +1640,7 @@ function applyData(data){
   $('#f-note').textContent=data.footerNote;
   document.title=data.brideName+' & '+data.groomName;
 
-  var activeDays=data.days,guest=null,note=$('#invite-note');
+  var activeDays=data.days,guest=null;
   try{
     var code=new URLSearchParams(location.search).get('g');
     if(code)guest=(data.guests||[]).filter(function(g){return g.code===code;})[0]||null;
@@ -1596,13 +1659,10 @@ function applyData(data){
         if(items.length)filtered.push(Object.assign({},d,{items:items}));
       });
       activeDays=filtered;
-      if(activeDays.length){
-        note.textContent='This link is just for '+guest.name+' — it shows only the functions you’re invited to.';
-        note.hidden=false;
-      }
     }
   }
   if(!activeDays.length)activeDays=data.days;
+  buildRsvp(data.rsvp);
   buildDays(activeDays,guest?0:2);
   buildGallery(data.gallery);
   startCountdown(data.weddingDateISO,data.muhuratFull);
@@ -1638,7 +1698,7 @@ $$('.copy-btn').forEach(bindCopyBtn);
 
 /* ---------- scroll reveal ---------- */
 if(!reduce&&'IntersectionObserver' in window){
-  var revealTargets=$$('.sec .center, .scratch-stage, .scratch-hint, .carousel, .dots, .band-inner, .tabs, .day, .venue-card, .travel li, footer .wrap');
+  var revealTargets=$$('.sec .center, .scratch-stage, .scratch-hint, .carousel, .dots, .band-inner, .tabs, .day, .venue-card, .travel li, .rsvp-col, footer .wrap');
   if(revealTargets.length){
     root.classList.add('js-anim');
     revealTargets.forEach(function(el,i){el.setAttribute('data-reveal','');});
