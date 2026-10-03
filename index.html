@@ -60,8 +60,11 @@
     color:var(--plum);margin:12px 0 0;text-wrap:balance;
   }
   .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto 0;color:var(--gold)}
-  .divider::before,.divider::after{content:"";width:58px;height:1.5px;background:currentColor;opacity:.85}
-  .divider i{width:7px;height:7px;border:1px solid currentColor;transform:rotate(45deg)}
+  .divider::before,.divider::after{content:"";width:52px;height:1.5px;background:currentColor;opacity:.85;margin-top:12px}
+  .divider i{width:66px;height:21px;
+    -webkit-mask:url(elephant-r.png) left center/31px auto no-repeat,url(elephant.png) right center/31px auto no-repeat;
+    mask:url(elephant-r.png) left center/31px auto no-repeat,url(elephant.png) right center/31px auto no-repeat;
+    background:linear-gradient(118deg,#6E4F12 0%,#A9832F 20%,#EED795 36%,#C9A44F 50%,#8A6620 68%,#E2C77E 84%,#6E4F12 100%);background-size:240% 240%}
   .divider.light{color:var(--gold-deep)}
   canvas.garland{display:block;width:100%;pointer-events:none}
 
@@ -119,7 +122,7 @@
     width:min(72vw,320px,calc((100dvh - 290px) * .54));
     aspect-ratio:.56;margin-top:84px;perspective:1400px;cursor:pointer;
   }
-  .finial{position:absolute;left:50%;top:0;width:23cqw;height:28.5cqw;transform:translate(-50%,-104%);color:var(--gold-deep);opacity:.92;filter:drop-shadow(0 2px 4px rgba(150,72,92,.22))}
+  .finial{position:absolute;left:50%;top:0;width:23cqw;height:28.5cqw;transform:translate(-50%,-128%);color:var(--gold-deep);opacity:.92;filter:drop-shadow(0 2px 4px rgba(150,72,92,.22))}
   .door-glow{
     position:absolute;inset:0;
     background:
@@ -208,7 +211,7 @@
   }
   .hero .garland{position:relative;z-index:3;height:128px}
   .hero .lantern-hang{z-index:2}
-  .hl1{left:4%;--len:34px;--w:30px}
+  .hl1{left:4%;--len:84px;--w:30px}
   .hl2{left:14%;--len:92px;--w:22px;--d:5.3s}
   .hl3{right:14%;--len:60px;--w:24px;--d:4.2s}
   .hl4{right:4%;--len:112px;--w:28px;--d:5.8s}
@@ -470,20 +473,24 @@
   .day-head p{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:1.22rem;color:var(--plum);margin:4px 0 0}
   .timeline{list-style:none;margin:30px 0 0;padding:0}
   .timeline li{
-    display:grid;grid-template-columns:88px 22px minmax(0,1fr);column-gap:14px;padding-bottom:26px;
+    display:grid;grid-template-columns:88px 40px minmax(0,1fr);column-gap:12px;padding-bottom:26px;
     animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;
   }
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .t-time{font:700 12.5px/1.4 var(--f-label);letter-spacing:.05em;color:var(--rose-deep);text-align:right;padding-top:.6em;font-variant-numeric:tabular-nums}
   .t-dot{position:relative;display:flex;justify-content:center}
-  .t-dot::before{content:"";position:relative;z-index:1;width:10px;height:10px;margin-top:.8em;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(201,164,79,.35)}
-  .t-dot::after{content:"";position:absolute;top:1.6em;bottom:-26px;width:1px;background:var(--hair)}
+  .t-dot::before{content:"";position:relative;z-index:1;width:40px;height:25px;margin-top:.3em;
+    -webkit-mask:url(elephant-r.png) center/contain no-repeat;mask:url(elephant-r.png) center/contain no-repeat;
+    background:linear-gradient(118deg,#6E4F12 0%,#A9832F 20%,#EED795 36%,#C9A44F 50%,#8A6620 68%,#E2C77E 84%,#6E4F12 100%);background-size:240% 240%}
+  .t-dot::after{content:"";position:absolute;top:calc(.3em + 30px);bottom:-22px;width:1px;background:var(--hair)}
   .timeline li:last-child .t-dot::after{display:none}
   .t-body h4{font-family:var(--f-display);font-weight:700;font-size:1.74rem;color:var(--plum);margin:0;line-height:1.3}
   .t-body p{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:1.18rem;color:var(--ink);margin:2px 0 0;line-height:1.4}
   .g-divider{max-width:360px;height:78px;margin:4px auto 0}
   @media (max-width:420px){
-    .timeline li{grid-template-columns:70px 18px minmax(0,1fr);column-gap:10px}
+    .timeline li{grid-template-columns:64px 34px minmax(0,1fr);column-gap:8px}
+    .t-dot::before{width:34px;height:21px}
+    .t-dot::after{top:calc(.3em + 26px)}
     .t-time{font-size:11px;letter-spacing:.06em}
     .tab em{font-size:.86rem}
   }
@@ -520,6 +527,18 @@
   .pk.flip i{transform:scaleX(-1)}
   @keyframes pkShine{to{background-position:100% 50%}}
   .door-pk{width:38cqw;z-index:3}
+  .el{display:block;aspect-ratio:480/300;height:auto;pointer-events:none;
+    filter:drop-shadow(0 1px 0 rgba(255,250,236,.7)) drop-shadow(0 3px 4px rgba(110,52,30,.26))}
+  .el i{display:block;width:100%;height:100%;
+    -webkit-mask:url(elephant.png) center/contain no-repeat;mask:url(elephant.png) center/contain no-repeat;
+    background:linear-gradient(118deg,#6E4F12 0%,#A9832F 20%,#EED795 36%,#C9A44F 50%,#8A6620 68%,#E2C77E 84%,#6E4F12 100%);background-size:240% 240%;background-position:0% 50%;animation:pkShine 7s ease-in-out infinite alternate}
+  .el.flip i{transform:scaleX(-1)}
+  .hero .hero-el{position:absolute;bottom:2px;width:clamp(84px,23vw,170px);z-index:2}
+  .hero .hero-el.l{left:2%}
+  .hero .hero-el.r{right:2%}
+  .f-eles{display:flex;justify-content:center;align-items:flex-end;gap:clamp(14px,5vw,34px);margin:2px auto 0}
+  .f-eles .el{width:clamp(78px,22vw,118px)}
+  .f-eles .kalash{width:34px;height:43px;margin-bottom:6px}
   .gate.opening .door-pk{opacity:0;transition:opacity .6s ease}
   .venue-name{
     position:relative;font-family:var(--f-display);font-weight:700;font-size:clamp(1.98rem,9.2vw,4.7rem);line-height:1.05;margin:12px 0 0;
@@ -681,7 +700,7 @@
   <div class="lantern-hang gl2" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
   <div class="lantern-hang gl3" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
   <div class="lantern-hang gl4" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
-  <canvas class="garland gate-swag" data-seed="3" data-drops="j" data-clear="#doorway" data-band="40" data-swag="4" aria-hidden="true"></canvas>
+  <canvas class="garland gate-swag" data-seed="3" data-drops="j" data-rod="1" data-clear="#doorway" data-band="40" data-swag="4" aria-hidden="true"></canvas>
 
   <div class="doorway" id="doorway">
     <svg class="finial" aria-hidden="true"><use href="#ganesha"/></svg>
@@ -738,6 +757,8 @@
     <div class="lantern-hang hl4" aria-hidden="true"><svg class="lantern"><use href="#lantern"/></svg></div>
     <svg class="mandala" aria-hidden="true"></svg>
     <svg class="arcade" aria-hidden="true"></svg>
+    <span class="el hero-el l flip" aria-hidden="true"><i></i></span>
+    <span class="el hero-el r" aria-hidden="true"><i></i></span>
 
     <div class="wrap hero-inner">
       <svg class="ganesha" role="img" aria-label="Lord Ganesha"><use href="#ganesha"/></svg>
@@ -927,6 +948,7 @@
   <footer>
     <canvas class="garland" data-seed="29" data-drops="1" data-band="46" aria-hidden="true"></canvas>
     <div class="wrap">
+      <div class="f-eles" aria-hidden="true"><span class="el flip"><i></i></span><svg class="kalash"><use href="#kalash"/></svg><span class="el"><i></i></span></div>
       <p class="f-names" id="f-names">Aakshi &amp; Supreet</p>
       <p class="f-tag" id="f-tag">#AakshiWedsSupreet &nbsp;&middot;&nbsp; 21.11.2026</p>
       <p class="f-note" id="f-note">With love, the Chawla and Sharma families</p>
@@ -1074,6 +1096,16 @@ function paintGarland(cv){
     if(el){var cr=cv.getBoundingClientRect(),er=el.getBoundingClientRect();if(er.width)clearR=[er.left-cr.left-30,er.right-cr.left+30];}
   }
   var x,k;
+  if(d.rod){
+    var rg=ctx.createLinearGradient(0,0,0,7*s);rg.addColorStop(0,'#8E6B22');rg.addColorStop(.45,'#F0DDA6');rg.addColorStop(1,'#8E6B22');
+    ctx.fillStyle=rg;ctx.fillRect(0,0,w,6*s);
+    ctx.fillStyle='rgba(110,80,20,.35)';ctx.fillRect(0,6*s,w,1);
+    for(var rn=0;rn<=swag;rn++){
+      var rx=Math.min(w-10*s,Math.max(10*s,rn*seg));
+      ctx.strokeStyle='rgba(150,116,44,.95)';ctx.lineWidth=1.4*s;ctx.beginPath();ctx.moveTo(rx,4*s);ctx.lineTo(rx,midAt(rx));ctx.stroke();
+      drawBead(ctx,rx,6*s,4.2*s);
+    }
+  }
   if(jdrops&&swag){
     for(var jn=0;jn<=swag;jn++){
       x=Math.min(w-12,Math.max(12,jn*seg));
