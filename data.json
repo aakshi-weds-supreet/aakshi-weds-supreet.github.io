@@ -1,22 +1,22 @@
 {
   "brideName": "Dr. Aakshi",
   "groomName": "Supreet",
-  "brideFamily": "Daughter of Smt. Sunita & Shri Rajendra Chawla",
-  "groomFamily": "Son of Smt. Anjali & Shri Mahesh Sharma",
+  "brideFamily": "Daughter of Smt. Meena & Shri Virendra Agrawal",
+  "groomFamily": "Son of Smt. Rashmi & Late Shri Satish Agrawal",
   "venueName": "Hariyali Resort",
   "city": "Kota",
   "state": "Rajasthan",
-  "venueNote": "Four days of celebration, one beautiful address. Rooms are held for outstation guests from 18 to 23 November.",
-  "weddingDateISO": "2026-11-21T23:52:00+05:30",
-  "weddingDay": "Saturday",
-  "weddingDateNum": "21",
-  "weddingMonthNum": "11",
-  "weddingYear": "2026",
+  "venueNote": "Two days of celebration, one beautiful address. Rooms are held for outstation guests from 25 to 26 January.",
+  "weddingDateISO": "2027-01-26T23:52:00+05:30",
+  "weddingDay": "Tuesday",
+  "weddingDateNum": "26",
+  "weddingMonthNum": "01",
+  "weddingYear": "2027",
   "weddingMonthText": "the twenty-first of November",
   "muhuratNote": "Vivah Muhurat · 11:52 PM",
-  "muhuratFull": "Vivah Muhurat · 11:52 PM · Saturday, 21 November 2026",
+  "muhuratFull": "Vivah Muhurat · 11:52 PM · Tuesday , 26 January 2027",
   "hashtag": "#AakshiWedsSupreet",
-  "footerNote": "With love, the Chawla and Sharma families",
+  "footerNote": "With love, the Singhal and Mangal families",
   "calendarUrl": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan",
   "gallery": [],
   "guests": [
@@ -24,7 +24,6 @@
       "name": "tesst1",
       "code": "tesst1",
       "days": [
-        "reception",
         "sangeet",
         "mehendi"
       ],
@@ -35,41 +34,26 @@
         "mehendi:3",
         "sangeet:0",
         "sangeet:1",
-        "sangeet:2",
-        "sangeet:3",
-        "reception:0",
-        "reception:1",
-        "reception:2",
-        "reception:3"
-      ]
-    },
-    {
-      "name": "tes2",
-      "code": "tes2",
-      "items": [
-        "sangeet:0",
-        "sangeet:1",
-        "sangeet:2",
-        "sangeet:3",
         "vivah:0",
         "vivah:1",
+        "vivah:2",
         "vivah:3",
-        "reception:0",
-        "reception:1",
-        "reception:2",
-        "reception:3"
+        "sangeet:2",
+        "sangeet:3",
+        "sangeet:4",
+        "vivah:4"
       ]
     }
   ],
   "days": [
     {
       "id": "sangeet",
-      "mon": "Nov",
-      "num": "20",
+      "mon": "Jan",
+      "num": "25",
       "tab": "Haldi & Sangeet",
       "title": "Haldi & Sangeet",
-      "date": "Friday, 20 November",
-      "place": "Poolside Courtyard & Shubh Banquet Hall",
+      "date": "Monday, 25 January",
+      "place": "Hariyali Resort",
       "items": [
         [
           "10:30 AM",
@@ -80,6 +64,11 @@
           "01:00 PM",
           "Lunch",
           "A Rajasthani thali by the pool"
+        ],
+        [
+          "02:00 PM",
+          "Mayra/Bhaat",
+          ""
         ],
         [
           "07:30 PM",
@@ -95,63 +84,37 @@
     },
     {
       "id": "vivah",
-      "mon": "Nov",
-      "num": "21",
+      "mon": "Jan",
+      "num": "26",
       "tab": "Vivah",
       "title": "Vivah · The Wedding",
-      "date": "Saturday, 21 November",
-      "place": "Main Gate & Mandap Lawn",
+      "date": "Tuesday, 26 January",
+      "place": "Hariyali Resort",
       "items": [
         [
-          "07:00 PM",
+          "11:00 AM",
           "Baraat",
           "The groom arrives with band, ghodi and dancing"
         ],
         [
-          "08:30 PM",
+          "12:00 PM",
           "Varmala",
           "Garlands exchanged on the stage"
         ],
         [
-          "09:00 PM",
-          "Dinner",
-          "Served on the lawn through the night"
-        ],
-        [
-          "11:52 PM",
+          "12:30 PM",
           "Phere",
           "The saat phere at the Vivah Muhurat"
-        ]
-      ]
-    },
-    {
-      "id": "reception",
-      "mon": "Nov",
-      "num": "22",
-      "tab": "Reception",
-      "title": "Reception",
-      "date": "Sunday, 22 November",
-      "place": "Chambal Hall",
-      "items": [
+        ],
+        [
+          "1:00 PM",
+          "Lunch",
+          ""
+        ],
         [
           "07:30 PM",
-          "Guest arrival",
-          "Welcome and seating"
-        ],
-        [
-          "08:00 PM",
-          "The couple arrives",
-          "Mr & Mrs, for the first time"
-        ],
-        [
-          "08:30 PM",
-          "Blessings",
-          "Family greetings and photographs"
-        ],
-        [
-          "09:00 PM",
-          "Dinner",
-          "A meal shared with love"
+          "Reception",
+          "Served on the lawn through the night"
         ]
       ]
     }
