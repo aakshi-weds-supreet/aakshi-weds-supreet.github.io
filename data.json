@@ -129,5 +129,15 @@
         ]
       ]
     }
-  ]
+  ],
+  "rsvp": {
+    "bride": [
+      {
+        "name": "Vedansh Singhal",
+        "phone": "9119164916",
+        "relation": "Brother"
+      }
+    ],
+    "groom": []
+  }
 }
