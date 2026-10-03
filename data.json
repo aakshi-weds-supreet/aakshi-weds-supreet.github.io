@@ -133,6 +133,21 @@
   "rsvp": {
     "bride": [
       {
+        "name": "Mr. Virendra Agrawal",
+        "phone": "9413385226",
+        "relation": "Father"
+      },
+      {
+        "name": "Ms. Meena Singhal",
+        "phone": "7976763695",
+        "relation": "Mother"
+      },
+      {
+        "name": "Dr. Dravi Singhal",
+        "phone": "9509739407",
+        "relation": "Sister"
+      },
+      {
         "name": "Vedansh Singhal",
         "phone": "9119164916",
         "relation": "Brother"
