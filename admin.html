@@ -83,6 +83,13 @@
   }
   .fn-checks input{width:auto;margin:0}
   .guest-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .suggest{
+    display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    margin-top:7px;padding:9px 11px;border-radius:7px;background:#FFF4DC;border:1px solid #EBD39A;
+    font-size:12.5px;color:#6A4B0E;
+  }
+  .suggest[hidden]{display:none}
+  .suggest .btn{flex:0 0 auto}
   .link-box{
     display:flex;gap:8px;align-items:center;margin-top:8px;padding:8px 10px;background:var(--ivory-2);
     border-radius:7px;font-size:12px;color:var(--gold-deep);word-break:break-all;
@@ -191,18 +198,23 @@
 
   <div class="card">
     <h2>Date &amp; muhurat</h2>
-    <p class="hint">This date drives the live countdown and the scratch-card reveal.</p>
+    <p class="hint">This date drives the live countdown and the scratch-card reveal. Changing it fills in the day, the date in words and the calendar link for you &mdash; you can still edit any of them by hand.</p>
     <label>Wedding date &amp; time</label>
     <input type="datetime-local" id="f-dateLocal">
-    <label>Day of week (e.g. Saturday)</label>
+    <label>Day of week (shown on the scratch card, e.g. Saturday)</label>
     <input type="text" id="f-weddingDay">
+    <div class="suggest" id="sg-day" hidden></div>
+    <label>Date in words (shown under the date on the scratch card)</label>
+    <input type="text" id="f-weddingMonthText" placeholder="the twenty-sixth of January">
+    <div class="suggest" id="sg-words" hidden></div>
     <label>Short muhurat note (shown on the scratch card)</label>
     <input type="text" id="f-muhuratNote" placeholder="Vivah Muhurat &middot; 11:52 PM">
     <label>Full muhurat line (shown under the countdown)</label>
     <input type="text" id="f-muhuratFull" placeholder="Vivah Muhurat &middot; 11:52 PM &middot; Saturday, 21 November 2026">
-    <label>Google Calendar link</label>
+    <div class="suggest" id="sg-muhurat" hidden></div>
+    <label>Google Calendar link (the &ldquo;Add to Google Calendar&rdquo; button)</label>
     <input type="text" id="f-calendarUrl">
-    <p class="small muted" style="margin-top:6px">Tip: build this link at <code class="k">calendar.google.com</code> &rarr; create the event &rarr; share it, or ask Claude to regenerate it if the date changes.</p>
+    <div class="suggest" id="sg-cal" hidden></div>
   </div>
 
   <div class="card">
@@ -352,6 +364,7 @@ function loadData(){
       if(json){dataSha=json.sha;state=JSON.parse(b64decode(json.content));}
       else{state=JSON.parse(JSON.stringify(DEFAULTS));}
       Object.keys(DEFAULTS).forEach(function(k){if(!(k in state))state[k]=DEFAULTS[k];});
+      dropDeadGuestRefs();
       renderForm();
     })
     .catch(function(err){showMsg($('#save-msg'),'err',err.message);});
@@ -374,6 +387,58 @@ function localToIso(local){
   var p=function(n){return (n<10?'0':'')+n;};
   return local+':00'+sign+p(Math.floor(abs/60))+':'+p(abs%60);
 }
+var ORD=['','first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth','eleventh','twelfth','thirteenth','fourteenth','fifteenth','sixteenth','seventeenth','eighteenth','nineteenth','twentieth','twenty-first','twenty-second','twenty-third','twenty-fourth','twenty-fifth','twenty-sixth','twenty-seventh','twenty-eighth','twenty-ninth','thirtieth','thirty-first'];
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var WEEK=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function dateParts(iso){
+  var m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(iso||'');
+  if(!m)return null;
+  var y=+m[1],mo=+m[2],d=+m[3];
+  return {y:y,m:mo,d:d,hh:+m[4],mm:+m[5],
+    weekday:WEEK[new Date(Date.UTC(y,mo-1,d)).getUTCDay()],
+    words:'the '+ORD[d]+' of '+MONTHS[mo-1],
+    label:d+' '+MONTHS[mo-1]+' '+y};
+}
+function utcStamp(dt){return dt.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');}
+function calendarFor(){
+  var start=new Date(state.weddingDateISO);
+  if(isNaN(start))return state.calendarUrl||'';
+  var end=new Date(start.getTime()+4*3600*1000);
+  var where=[state.venueName,state.city,state.state].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE'+
+    '&text='+encodeURIComponent((state.brideName||'')+' & '+(state.groomName||'')+'’s Wedding')+
+    '&dates='+utcStamp(start)+'/'+utcStamp(end)+
+    '&details='+encodeURIComponent(state.muhuratNote||'')+
+    '&location='+encodeURIComponent(where);
+}
+function setField(sel,key,val){state[key]=val;$(sel).value=val;}
+function suggest(id,html,btnLabel,onUse){
+  var box=$(id);
+  if(!html){box.hidden=true;box.innerHTML='';return;}
+  box.hidden=false;
+  box.innerHTML='<span>'+html+'</span>'+(btnLabel?'<button type="button" class="btn btn-line btn-sm">'+btnLabel+'</button>':'');
+  if(btnLabel)$('button',box).addEventListener('click',function(){onUse();refreshDateHints();});
+}
+function timeIn(s){var m=/(\d{1,2}):(\d{2})\s*([AP]M)/i.exec(s||'');return m?(+m[1])+':'+m[2]+' '+m[3].toUpperCase():null;}
+function refreshDateHints(){
+  var p=dateParts(state.weddingDateISO);
+  if(!p)return;
+  suggest('#sg-day', (state.weddingDay||'').trim().toLowerCase()===p.weekday.toLowerCase()?'':
+    p.label+' is a <b>'+p.weekday+'</b>.', 'Use '+p.weekday, function(){setField('#f-weddingDay','weddingDay',p.weekday);});
+  suggest('#sg-words', (state.weddingMonthText||'').trim().toLowerCase()===p.words.toLowerCase()?'':
+    'Your date is '+p.label+', so this would normally read <b>&ldquo;'+p.words+'&rdquo;</b>.', 'Use this', function(){setField('#f-weddingMonthText','weddingMonthText',p.words);});
+  var t1=timeIn(state.muhuratNote),t2=timeIn(state.muhuratFull);
+  var fullHasDate=(state.muhuratFull||'').indexOf(String(p.d))>-1&&(state.muhuratFull||'').indexOf(MONTHS[p.m-1])>-1;
+  var mh='';
+  if(t1&&t2&&t1!==t2)mh='The two muhurat lines show different times (<b>'+t1+'</b> and <b>'+t2+'</b>). Please make them match.';
+  else if(state.muhuratFull&&!fullHasDate)mh='The full muhurat line doesn&rsquo;t mention <b>'+p.label+'</b>. Please check it.';
+  suggest('#sg-muhurat',mh);
+  var cal=state.calendarUrl||'', want=calendarFor();
+  var dm=/dates=(\d{8}T\d{6}Z)/.exec(cal), wm=/dates=(\d{8}T\d{6}Z)/.exec(want);
+  suggest('#sg-cal', (dm&&wm&&dm[1]===wm[1])?'':
+    'This link doesn&rsquo;t match your wedding date, so guests would save the wrong day.', 'Rebuild from wedding date',
+    function(){setField('#f-calendarUrl','calendarUrl',calendarFor());});
+}
 function renderForm(){
   bindText('#f-brideName','brideName');bindText('#f-groomName','groomName');
   bindText('#f-brideFamily','brideFamily');bindText('#f-groomFamily','groomFamily');
@@ -382,15 +447,23 @@ function renderForm(){
   bindText('#f-venueNote','venueNote');
   bindText('#f-weddingDay','weddingDay');bindText('#f-muhuratNote','muhuratNote');
   bindText('#f-muhuratFull','muhuratFull');bindText('#f-calendarUrl','calendarUrl');
+  bindText('#f-weddingMonthText','weddingMonthText');
+  ['#f-weddingDay','#f-weddingMonthText','#f-muhuratNote','#f-muhuratFull','#f-calendarUrl','#f-brideName','#f-groomName','#f-venueName','#f-city','#f-state']
+    .forEach(function(id){$(id).addEventListener('input',refreshDateHints);});
 
   var dl=$('#f-dateLocal');dl.value=isoToLocal(state.weddingDateISO);
   dl.addEventListener('change',function(){
     state.weddingDateISO=localToIso(dl.value);
-    var d=new Date(state.weddingDateISO);
-    state.weddingDateNum=String(d.getDate());
-    state.weddingMonthNum=String(d.getMonth()+1).padStart(2,'0');
-    state.weddingYear=String(d.getFullYear());
+    var p=dateParts(state.weddingDateISO);
+    state.weddingDateNum=String(p.d);
+    state.weddingMonthNum=String(p.m).padStart(2,'0');
+    state.weddingYear=String(p.y);
+    setField('#f-weddingDay','weddingDay',p.weekday);
+    setField('#f-weddingMonthText','weddingMonthText',p.words);
+    setField('#f-calendarUrl','calendarUrl',calendarFor());
+    refreshDateHints();
   });
+  refreshDateHints();
 
   renderDays();renderGallery();
 }
@@ -449,6 +522,14 @@ function renderItems(d,wrap){
       renderGuests();
     });
     wrap.appendChild(row);
+  });
+}
+function dropDeadGuestRefs(){
+  var valid={},ids={};
+  (state.days||[]).forEach(function(d){ids[d.id]=1;(d.items||[]).forEach(function(it,ix){valid[d.id+':'+ix]=1;});});
+  (state.guests||[]).forEach(function(g){
+    if(g.items)g.items=g.items.filter(function(k){return valid[k];});
+    if(g.days)g.days=g.days.filter(function(x){return ids[x];});
   });
 }
 function pruneGuestItems(dayId,removedIndex){
