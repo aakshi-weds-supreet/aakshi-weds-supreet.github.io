@@ -12,26 +12,21 @@
   "weddingDateNum": "26",
   "weddingMonthNum": "01",
   "weddingYear": "2027",
-  "weddingMonthText": "the twenty-first of November",
+  "weddingMonthText": "the twenty-sixth of January",
   "muhuratNote": "Vivah Muhurat · 2:00PM",
-  "muhuratFull": "Vivah Muhurat · 11:52 PM · Tuesday , 26 January 2027",
+  "muhuratFull": "Vivah Muhurat · 02:00 PM · Tuesday , 26 January 2027",
   "hashtag": "#AakshiWedsSupreet",
   "footerNote": "With love, the Singhal and Mangal families",
-  "calendarUrl": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan",
+  "calendarUrl": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dr.%20Aakshi%20%26%20Supreet%E2%80%99s%20Wedding&dates=20270126T083000Z/20270126T123000Z&details=Vivah%20Muhurat%20%C2%B7%202%3A00PM&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan",
   "gallery": [],
   "guests": [
     {
       "name": "tesst1",
       "code": "tesst1",
       "days": [
-        "sangeet",
-        "mehendi"
+        "sangeet"
       ],
       "items": [
-        "mehendi:0",
-        "mehendi:1",
-        "mehendi:2",
-        "mehendi:3",
         "sangeet:0",
         "sangeet:1",
         "vivah:0",
