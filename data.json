@@ -21,8 +21,8 @@
   "gallery": [],
   "guests": [
     {
-      "name": "tesst1",
-      "code": "tesst1",
+      "name": "test1",
+      "code": "test1",
       "days": [
         "sangeet"
       ],
@@ -33,8 +33,15 @@
       ]
     },
     {
-      "name": "",
-      "code": "",
+      "name": "test2",
+      "code": "test2",
+      "items": [
+        "vivah:4"
+      ]
+    },
+    {
+      "name": "test3",
+      "code": "test3",
       "items": [
         "sangeet:0",
         "sangeet:1",
