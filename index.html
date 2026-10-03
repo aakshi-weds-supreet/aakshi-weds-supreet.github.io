@@ -558,26 +558,32 @@
   @media (max-width:640px){.travel{grid-template-columns:1fr}}
 
   /* ---------- rsvp ---------- */
-  .rsvp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:780px;margin:36px auto 0;text-align:center}
-  .rsvp-grid.one{grid-template-columns:minmax(0,440px);justify-content:center}
-  @media (max-width:640px){.rsvp-grid{grid-template-columns:minmax(0,1fr);gap:20px}}
-  #rsvp[hidden],.rsvp-col[hidden]{display:none}
-  .rsvp-col{position:relative;padding:30px clamp(18px,4vw,30px) 26px;color:var(--ink);
+  #rsvp[hidden]{display:none}
+  .rsvp-col{position:relative;max-width:500px;margin:34px auto 0;padding:24px clamp(20px,5vw,34px) 22px;color:var(--ink);
     background:linear-gradient(165deg,#FFF3F8 0%,#FAD6E3 60%,#F4C1D3 100%);box-shadow:0 26px 52px -34px rgba(150,72,92,.45)}
   .rsvp-col::before,.rsvp-col::after{content:"";position:absolute;pointer-events:none}
   .rsvp-col::before{inset:9px;border:1.5px solid rgba(140,102,30,.62)}
   .rsvp-col::after{inset:14px;border:1px solid rgba(140,102,30,.32)}
-  .rsvp-col .el{width:70px;margin:0 auto 4px}
-  .rsvp-col h3{position:relative;font-family:var(--f-display);font-weight:700;font-size:1.85rem;line-height:1.2;color:var(--plum);margin:0}
-  .rsvp-col ul{position:relative;list-style:none;margin:14px 0 0;padding:0}
-  .rsvp-col li{padding:16px 0;border-top:1px solid var(--hair)}
-  .rsvp-col li:first-child{border-top:0;padding-top:6px}
-  .rc-name{font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1.25;color:var(--plum);margin:0}
-  .rc-rel{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:1.16rem;color:var(--muted);margin:2px 0 0}
-  .rc-tel{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:9px 18px;border-radius:999px;
+  .rsvp-col .el{width:52px;margin:0 auto 2px}
+  .rsvp-col h3{position:relative;font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1.2;color:var(--plum);margin:0}
+  .rsvp-col ul{position:relative;list-style:none;margin:10px 0 0;padding:0;text-align:left}
+  .rsvp-col li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:10px 2px;border-top:1px solid var(--hair)}
+  .rsvp-col li:first-child{border-top:0}
+  .rc-name{font-family:var(--f-display);font-weight:700;font-size:1.2rem;line-height:1.2;color:var(--plum);margin:0}
+  .rc-rel{font-family:var(--f-serif);font-style:italic;font-weight:600;font-size:1rem;line-height:1.25;color:var(--muted);margin:1px 0 0}
+  .rc-who{min-width:0}
+  .rc-tel{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;white-space:nowrap;
     border:1.5px solid var(--gold);background:rgba(255,255,255,.7);color:var(--rose-deep);text-decoration:none;
-    font:700 14px/1 var(--f-label);letter-spacing:.1em;font-variant-numeric:lining-nums tabular-nums}
-  .rc-tel svg{width:15px;height:15px;flex:0 0 auto;color:var(--gold-deep)}
+    font:700 12.5px/1 var(--f-label);letter-spacing:.05em;font-variant-numeric:lining-nums tabular-nums}
+  .rc-tel svg{width:13px;height:13px;flex:0 0 auto;color:var(--gold-deep)}
+  @media (max-width:420px){
+    .rsvp-col{padding-left:20px;padding-right:20px}
+    .rsvp-col li{column-gap:8px}
+    .rc-name{font-size:1.1rem}.rc-rel{font-size:.95rem}
+    .rc-tel{padding:6px 9px;gap:5px;font-size:11.5px;letter-spacing:.02em}
+    .rc-tel svg{width:12px;height:12px}
+  }
+  @media (max-width:330px){.rsvp-col li{grid-template-columns:minmax(0,1fr);row-gap:6px}.rc-tel{justify-self:start}}
 
   /* ---------- footer ---------- */
   footer{
@@ -972,17 +978,10 @@
       <p class="eyebrow">Kindly respond</p>
       <h2 class="h2">RSVP</h2>
       <div class="divider"><i></i></div>
-      <div class="rsvp-grid">
-        <div class="rsvp-col" id="rsvp-bride">
-          <span class="el flip" aria-hidden="true"><i></i></span>
-          <h3>Bride&rsquo;s Side</h3>
-          <ul></ul>
-        </div>
-        <div class="rsvp-col" id="rsvp-groom">
-          <span class="el" aria-hidden="true"><i></i></span>
-          <h3>Groom&rsquo;s Side</h3>
-          <ul></ul>
-        </div>
+      <div class="rsvp-col" id="rsvp-bride">
+        <span class="el" aria-hidden="true"><i></i></span>
+        <h3>Bride&rsquo;s Side</h3>
+        <ul></ul>
       </div>
     </div>
   </section>
@@ -1482,24 +1481,16 @@ updateDots();
 /* ---------- content data (defaults; overridden by data.json if present) ---------- */
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 var TEL_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
-// RSVP is a list of people to call on each side; guests have nothing to fill in
+// RSVP lists the bride's side people to call; guests have nothing to fill in
 function buildRsvp(rs){
-  rs=rs||{};
-  function fill(side){
-    var col=$('#rsvp-'+side);if(!col)return 0;
-    var list=(Array.isArray(rs[side])?rs[side]:[]).filter(function(c){return c&&(String(c.name||'').trim()||String(c.phone||'').trim());});
-    $('ul',col).innerHTML=list.map(function(c){
-      var tel=String(c.phone||'').replace(/[^\d+]/g,'');
-      return '<li><p class="rc-name">'+esc(c.name||'')+'</p>'+
-        (String(c.relation||'').trim()?'<p class="rc-rel">'+esc(c.relation)+'</p>':'')+
-        (tel?'<a class="rc-tel" href="tel:'+tel+'">'+TEL_ICON+esc(c.phone)+'</a>':'')+'</li>';
-    }).join('');
-    col.hidden=!list.length;
-    return list.length;
-  }
-  var nb=fill('bride'),ng=fill('groom');
-  $('#rsvp').hidden=!(nb||ng);
-  $('#rsvp .rsvp-grid').classList.toggle('one',!(nb&&ng));
+  var list=(rs&&Array.isArray(rs.bride)?rs.bride:[]).filter(function(c){return c&&(String(c.name||'').trim()||String(c.phone||'').trim());});
+  $('#rsvp-bride ul').innerHTML=list.map(function(c){
+    var tel=String(c.phone||'').replace(/[^\d+]/g,'');
+    return '<li><div class="rc-who"><p class="rc-name">'+esc(c.name||'')+'</p>'+
+      (String(c.relation||'').trim()?'<p class="rc-rel">'+esc(c.relation)+'</p>':'')+'</div>'+
+      (tel?'<a class="rc-tel" href="tel:'+tel+'">'+TEL_ICON+esc(c.phone)+'</a>':'')+'</li>';
+  }).join('');
+  $('#rsvp').hidden=!list.length;
 }
 var DEFAULTS={
   brideName:'Dr. Aakshi',groomName:'Supreet',
@@ -1517,7 +1508,7 @@ var DEFAULTS={
   calendarUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aakshi%20%26%20Supreet%27s%20Wedding&dates=20261121T133000Z/20261121T200000Z&details=Baraat%20at%207%3A00%20PM%2C%20Phere%20at%20the%20Vivah%20Muhurat%2C%2011%3A52%20PM%20IST&location=Hariyali%20Resort%2C%20Kota%2C%20Rajasthan',
   gallery:[],
   guests:[],
-  rsvp:{bride:[],groom:[]},
+  rsvp:{bride:[]},
   days:[
     {id:'mehendi',mon:'Nov',num:'19',tab:'Mehendi',title:'Mehendi',date:'Thursday, 19 November',place:'Baghbaan Lawn',items:[
       ['04:00 PM','Guests arrive','Welcome sharbat and settling in'],

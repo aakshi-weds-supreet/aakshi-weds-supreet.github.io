@@ -204,16 +204,11 @@
 
   <div class="card">
     <h2>RSVP contacts</h2>
-    <p class="hint">These people are listed on the site in an RSVP section after the venue, with their mobile numbers. Guests only see the list &mdash; there is nothing for them to fill in or submit. Tapping a number on a phone starts a call. Leave both sides empty to hide the section.</p>
+    <p class="hint">These people from the bride&rsquo;s side are listed on the site in an RSVP section after the venue, with their mobile numbers. Guests only see the list &mdash; there is nothing for them to fill in or submit. Tapping a number on a phone starts a call. Leave the list empty to hide the section.</p>
     <div class="rsvp-side">
       <b>Bride&rsquo;s side</b>
       <div id="rsvp-bride"></div>
       <div style="margin-top:10px"><button class="btn btn-line btn-sm" id="add-rsvp-bride" type="button">+ Add contact</button></div>
-    </div>
-    <div class="rsvp-side">
-      <b>Groom&rsquo;s side</b>
-      <div id="rsvp-groom"></div>
-      <div style="margin-top:10px"><button class="btn btn-line btn-sm" id="add-rsvp-groom" type="button">+ Add contact</button></div>
     </div>
   </div>
 
@@ -297,7 +292,7 @@ var DEFAULTS={
   footerNote:'With love, the two families',
   calendarUrl:'',
   gallery:[],days:[],guests:[],
-  rsvp:{bride:[],groom:[]}
+  rsvp:{bride:[]}
 };
 var SITE_URL='https://aakshi-weds-supreet.github.io/';
 
@@ -659,12 +654,13 @@ $('#add-guest').addEventListener('click',function(){
 /* ---------- rsvp contacts ---------- */
 function rsvpLists(){
   if(!state.rsvp||typeof state.rsvp!=='object')state.rsvp={};
-  ['bride','groom'].forEach(function(k){if(!Array.isArray(state.rsvp[k]))state.rsvp[k]=[];});
+  if(!Array.isArray(state.rsvp.bride))state.rsvp.bride=[];
+  delete state.rsvp.groom;
   return state.rsvp;
 }
 function renderRsvp(){
   var rs=rsvpLists();
-  ['bride','groom'].forEach(function(side){
+  ['bride'].forEach(function(side){
     var wrap=$('#rsvp-'+side),list=rs[side];wrap.innerHTML='';
     if(!list.length){wrap.innerHTML='<p class="small muted" style="margin:6px 0 0">No contacts yet.</p>';return;}
     list.forEach(function(c,i){
@@ -680,7 +676,7 @@ function renderRsvp(){
     });
   });
 }
-['bride','groom'].forEach(function(side){
+['bride'].forEach(function(side){
   $('#add-rsvp-'+side).addEventListener('click',function(){
     rsvpLists()[side].push({name:'',phone:'',relation:''});
     renderRsvp();
